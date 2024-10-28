@@ -1,17 +1,17 @@
 - Use React and Redux to build complex and large applications
--Improve performance of any web application (Code Splitting, Load Balancing, Caching, Code Optimizations, and much more)
--Use SSH on a remote linux server and generate ssh keys
--Use Webpack and Parcel to set up a project and bundle your files
--Implement proper security and securing your apps like an expert
--Use AWS Lambda and Serverless architecture to manage applications that can handle millions of users
--Use Typescript on a project to have less bugs in your code
--Write all kinds of tests and learn about all the testing tools you can use to write better software
--Use Docker and docker compose to create containers for your services
--Use Sessions and JWT to manage user authentication and authorization
--Use Redis database for session management and caching
--Decide when to use Server Side Rendering vs Client Side Rendering for your projects
--Create a Progressive Web App that works offline like a native mobile app
--Implement Continuous Integration, Continuous Delivery, Continuous Deployment for your company and make your boss happy
+- Improve performance of any web application (Code Splitting, Load Balancing, Caching, Code Optimizations, and much more)
+- Use SSH on a remote linux server and generate ssh keys
+- Use Webpack and Parcel to set up a project and bundle your files
+- Implement proper security and securing your apps like an expert
+- Use AWS Lambda and Serverless architecture to manage applications that can handle millions of users
+- Use Typescript on a project to have less bugs in your code
+- Write all kinds of tests and learn about all the testing tools you can use to write better software
+- Use Docker and docker compose to create containers for your services
+- Use Sessions and JWT to manage user authentication and authorization
+- Use Redis database for session management and caching
+- Decide when to use Server Side Rendering vs Client Side Rendering for your projects
+- Create a Progressive Web App that works offline like a native mobile app
+- Implement Continuous Integration, Continuous Delivery, Continuous Deployment for your company and make your boss happy
 
 Node.js v22.9.0 documentation
 https://nodejs.org/docs/latest/api/net.html
