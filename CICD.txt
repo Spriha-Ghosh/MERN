@@ -1,0 +1,1004 @@
+Learning Objectives
+Describe what an ETL process is.
+Explain what data loading means.
+Describe the trending shift from ETL to ELT.
+Summarize data extraction techniques.
+Name data transformation techniques.
+Describe the different ways information can be “lost in transformation”.
+Summarize data loading techniques.
+Differentiate batch loading from stream loading.
+Contrast ETL and ELT.
+Are you an aspiring Big Data Engineer or Developer interested in creating Data Pipelines for serving Data Warehouses and Data Analytics platforms? Would you like to learn all about ETL and ELT data pipelines and how to build them using Bash scripting and cutting-edge open-source tools such as Apache Airflow and Apache Kafka? This course may be just right for you. 
+ETL stands for Extract, Transform, and Load. It refers to the process of curating data from multiple sources and preparing the data for integration and loading into a destination platform such as a data warehouse or analytics environment. ELT is similar but loads the data in its raw format, reserving the transformations for people to apply themselves in a ‘self-serve analytics’ destination environment. Both methods are typical examples of data pipeline deployments. 
+In this course, you will explore the fundamental principles and techniques behind ETL and ELT processes. You will learn how to construct a basic ETL data pipeline from scratch using Bash shell-scripting. You will also learn about the tools, technologies, and use cases for the two main paradigms within data pipeline engineering: batch and streaming data pipelines.  You will further cement this knowledge by exploring and applying two popular open-source data pipeline tools: Apache Airflow and Apache Kafka.
+ You will learn all about Apache Airflow and use it to build, put into production, and monitor a basic batch ETL workflow. You will implement this data pipeline using Airflow’s central construct of a directed acyclic graph (DAG), consisting of simple Bash tasks, Python function and their dependencies.  
+You will also learn about Apache Kafka and use it to get hands-on experience with streaming data pipelines, implementing Kafka’s message producers and consumers, and creating a Kafka weather topic.
+
+Welcome to ETL Fundamentals. After watching this video, you will be able to: describe what an ETL process is, describe what data extraction means, describe what data 
+transformation means, describe what data loading means, and list use cases for ETL processes. What is an ETL process? ETL stands for Extract, Transform, and Load. 
+ETL is an automated data pipeline engineering methodology, whereby data is acquired and prepared for subsequent use in an analytics environment, such as a data warehouse or data mart. ETL refers to the process of curating data from multiple sources, conforming it to a unified data format or structure, and then loading the transformed data into its new environment. The extraction process obtains or reads the data from one or more sources. The transformation process wrangles the data into a format that is suitable for its destination and its intended use. The final loading process takes the transformed data and loads it into its new environment, ready for visualization, exploration, further transformation, and modeling. The curated data may also be utilized to support automation and decision-making. What is extraction? To extract data is to configure access to it and read it into an application. Normally this is an automated process. Some common methods include: Web scraping, where data is extracted from web pages using applications such as Python or R to parse the underlying HTML code, and Using APIs to programmatically connect to data and query it. The source data may be relatively static, such as a data archive, in which case the extraction step would be a stage within a batch process. On the other hand, the data could be streaming live, and from many locations. Examples include weather station data, social networking feeds, and IoT devices. What is data transformation? Data transformation, also known as data wrangling, means processing data to make it conform to the requirements of both the target system and the intended use case for the curated data. Transformation can include any of the following kinds of processes: Cleaning: fixing errors or missing values. Filtering: selecting only what is needed. Joining disparate data sources: merging related data. Feature engineering: such as creating KPIs for dashboards or machine learning. Formatting and data typing: making the data compatible with its destination. What is data loading? Generally this just means writing data to some new destination environment. Typical destinations include databases, data warehouses, and data marts. The key goal of data loading is to make the data readily available for ingestion by analytics applications so that end users can gain value from it. Applications include dashboards, reports, and advanced analytics such as forecasting and classification. There are many use cases for ETL pipelines. A very large amount of information is either already recorded or being generated, but is not yet captured, or accessible, as a digital file. Examples include paper documents, photos and illustrations, and analog audio and video tapes. Digitizing analog data includes extraction by some form of scanning, analog-to-digital transformation, and, finally, storage into a repository. Online transaction processing (OLTP) systems don’t save historical data. Accordingly, ETL processes capture the transaction history and prepare it for subsequent analysis in an online analytical processing (OLAP) system. Other use cases include engineering ‘features’, or KPIs, from data sources, as preparation for ingestion by dashboards used by operations, sales and marketing, customers, and executives. Training and deploying machine learning models for prediction and augmented decision-making. In this video, you learned that: ETL (Extract, Transform, Load) is an acronym for an automated data pipeline engineering methodology whereby data is acquired and prepared for subsequent use in an analytics environment, such as a data warehouse or data mart. The extraction process obtains the data from one or more sources. The transformation process wrangles the data into a format that is suitable for its destination and its intended use. The final loading process takes the transformed data and loads it into its new environment, ready for visualization, exploration, further transformation, and modeling.
+
+ETL is used for curating data and making it accessible to end users, for example, training and deploying machine learning models for prediction and augmented decision-making.
+
+ELT Basics
+Welcome to ELT Basics. After watching this video, you will be able to describe what an ELT process is. List use cases for ELT processes, and describe why ELT is an 
+emergent trend. What is an ELT process? ELT stands for extract, load, and transform. ELT is an acronym for a specific automated data pipeline engineering methodology.
+ ELT is similar to ETL in that similar stages are involved, but the order in which they are performed is different. For ELT processes, data is acquired and directly l
+ oaded as is into its destination environment. From its new home, usually a sophisticated analytics platform such as a data lake, it can be transformed on demand and 
+ however users wish. Like ETL, the first stage in the ELT process is extraction. The extraction process obtains the data from all sources and reads the data often in 
+ an asynchronous fashion into an application. The loading process takes the raw data as is and loads it into its new environment where modern analytics tools can then
+be used directly. The transformation process for ELT is much more dynamic than it is for conventional ETL. Modern analytics tools in the destination environment 
+enable interactive, on-demand exploration and visualization of your data, including advanced analytics, such as modeling and prediction. Use cases for ELT processes 
+typically fall within the high performance computing and big data realms. Cases include dealing with the massive swings and scale that come with implementing big data
+ products, calculating real-time analytics on streaming big data, and bringing together data sources that are highly distributed around the globe. In terms of speed, 
+ moving data is usually more of a bottleneck than processing it. The less you move it, the better. Therefore, ELT may be your best bet when you want flexibility in 
+ building a suite of data products from the same sources. Why is ELT emerging? Firstly, cloud computing solutions are evolving at tremendous rates due to the demands 
+ of big data. They can easily handle huge amounts of asynchronous data, which can be highly distributed around the world. Cloud computing resources are practically 
+ unlimited and they can scale on demand. Unlike traditional on-premises hardware, you only pay for the computing resources you use. You do not have to worry about 
+ under utilizing resources, that is, overspending on equipment. With ELT, you can have a clean separation between moving data and processing data. Of course, cloud 
+ computing is equally prepared to handle the most challenging cases for either of these two tasks. There may be many reasons to transform your data and just as many 
+ ways to do it. Thus, ELT is a flexible option that enables a variety of applications from the same source of data. Because you are working with a replica of the 
+ source data, there is no information loss. Many kinds of transformations can lead to information loss, and if these happen somewhere upstream in the pipeline, it m
+ ay be a long time before you can have a change request met. Worse yet, the information may be forever lost if the raw data is not stored. In this video, you learned 
+ that ELT processes are used for cases where flexibility, speed, and scalability are important. Cloud-based analytics platforms are ideally suited for handling big 
+ data and ELT processes in a cost-efficient manner, and ELT is an emerging trend mainly because cloud platform technologies are enabling it.
+
+ELT vs ETL
+Welcome to Comparing ETL and ELT. After watching this video, you will be able to list key differences between ETL and ELT, describe ELT as an evolution of ETL and 
+describe the trending shift from ETL to ELT. Differences between ETL and ELT, for one thing, the transformations happen in a different order. Transformations for ETL \
+pipelines take place within the data pipeline before the data reaches its destination, whereas transformations for ELT are decoupled from the data pipeline and happen
+ in the destination environment at will. They also differ in flexibility in how they can be used. ETL is normally a fixed process meant to serve a very specific 
+ function, whereas ELT is flexible, making data readily available for self-serve analytics. They also differ in their ability to handle big data. ETL processes 
+ traditionally handle structured relational data, and on-premises computing resources handle the workflow. Thus, scalability can be a problem. ELT, on the other hand
+ , handles any kind of data structured and unstructured. And to handle scalability problems posed by big data, ELT leverages the on-demand scalability offered by 
+ cloud-computing services. With regard to data discovery and time-to-insight, ETL pipelines take time and effort to modify, which means, users must wait for the 
+ development team to implement their requested changes. ELT provides more agility with some training in modern analytics applications, end users can easily connect 
+ to and experiment with the raw data, create their own dashboards, and run predictive models themselves. ELT is a natural evolution of ETL. One of the factors driving
+ that evolution is the demand to release raw data to a wider user base for the enterprise. Traditionally, ETL processes include an intermediate storage facility called a staging area. This is a holding area for raw, extracted data where you can run processes prior to loading the resulting transformed data into a data warehouse or a data mart. This sounds a lot like an ELT process, and the staging area fits the description of a data lake, which is a modern self-serve repository for storing and manipulating raw data. A traditional staging area, however, is not something that is usually shared across the company. Its a private siloed area set aside for developing, monitoring and performance tuning the data pipeline and its built-in transformations. Along with the ever-increasing ease of use and connection capabilities of analytics tools, raw data sources have become much more accessible to less technical end users. Accordingly, the paradigm is shifting to self-service data platforms. There is still a place for conventional ETL in developing data pipelines, so ETL is not disappearing anytime soon. However, there is a trend taking place, a trend which is favoring modern ELT over conventional ETL. The trend is being driven by the pain points that ELT solves, namely, the lengthy time-to-insight, the challenges, for example, scalability imposed by big data, and the conventional siloed nature of data. In this video, you learned that key differences between ETL and ELT are the location where the transformation takes place, flexibility, big data support, and time-to-insight. One of the factors driving the evolution from ETL to ELT is the demand to release raw data to a wider user base for the enterprise. Conventional ETL has many applications and still has its place. And ELT is more flexible than ETL, enabling end users to perform ad-hoc self-service data analytics in real time. [MUSIC]
+
+Data Extraction Technqiues
+Welcome to data extraction techniques. After watching this video, you will be able to list examples of raw data sources, describe data extraction techniques, and 
+relate use cases with data sources and extraction techniques. Here are some examples of raw data sources. Archived text and images from paper documents and PDFs. 
+Web pages, including text, tables, images, and links. Analog audio and video, which can be recorded on media such as magnetic tapes, or streaming in real time. 
+Survey data, statistical, and economic data, and transactional data from business, financial, real estate, and point of sale or POS transactions. Here are more 
+examples of raw data sources. Event-based data such as social media streams, weather data from weather station networks, internet of things, or IoT sensor streams. 
+Medical records, such as prescription history, medical treatments, and medical images, and also personal genetic data encoded in DNA and RNA samples. Evidently, data 
+is everywhere, and much of it is highly sensitive and personal and needs to be very carefully guarded for privacy and other concerns. There are many techniques for 
+extracting data, depending on the kind of data source and the intended use of the data. Examples include optical character recognition or OCR, which is used to 
+interpret and digitize text scanned from paper documents so it can be stored as a computer readable file. Analog to digital converters or ADCs, which can digitize 
+analog audio recordings and signals, and charge couple devices or CCDs that capture and digitize images. Opinions, questionnaires, and vital statistical data obtained
+through polling and Census methods. Cookies, user logs, and other methods used for tracking human or system behavior. More techniques include web scraping used to 
+crawl web pages and search of text images, tables, and hyperlinks. APIs, which are readily available for extracting data from all online data repositories and feeds, 
+such as government bureaus of statistics, libraries, weather networks, online shopping, and social networks. SQL languages for querying relational databases, and 
+NoSQL for querying, document, key value, graph, or other non-structured data repositories. Edge computing devices, such as video cameras that have built-in processing
+that can extract features from raw data. Finally, biomedical devices, such as microfluidic arrays, that can extract DNA sequences. Here are a few high-level examples
+of use cases along with their raw data sources and extraction techniques. You can use APIs to extract data from multiple structured data sources for integration into 
+a central repository. You can also use APIs to capture periodic or asynchronous events to store them in a history archive. Rather than transmitting potentially very 
+large volumes of redundant data from IoT devices, you can use edge computing to reduce that data volume by extracting features of interest from the raw data. Often this kind of extraction at the source is impractical, so the data is migrated to storage as is for further processing, analysis, or modeling. Also, you can use medical imaging devices and biometric sensors to acquire data for diagnostic purposes. In this video, you learned that some examples of raw data sources are archive, text, and images from p documents and PDFs and pages, including text, tables, images, and links. Many extraction techniques rely on sophisticated technology to capture information from raw data. SQL, NoSQL, web scraping, and APIs are important techniques for extracting data, and you can use medical imaging devices and biometric sensors to acquire data for diagnostic purposes.
+
+Data Transformation Techniques
+Welcome to Introduction to Data Transformation Techniques. After watching this video, you will be able to name data transformation techniques, compare schema-on-write
+ versus schema-on-read, and list ways information can be lost in transformation. Data transformation is mainly about formatting the data to suit the application. 
+ This can involve many kinds of operations, such as data typing, which involves casting data to appropriate types, such as integer, float, string, object, and 
+ category, data structuring, which includes converting one data format to another, such as JSON, XML, or CSV to database tables, as well as anonymizing and encrypting
+ transformations to help ensure privacy and security. Other types of transformations include cleaning operations for removing duplicate records, and filling missing 
+ values, normalizing data to ensure units are comparable, for example, using a common currency, filtering, sorting, aggregating, and binning operations for accessing 
+ the right data at a suitable level of detail and in a sensible order, and joining or merging disparate data sources. Schema-on-write is the conventional approach 
+ used in ETL pipelines, where the data must be conformed to a defined schema prior to loading to a destination, such as a relational database. The idea is to have 
+ the data consistently structured for stability and for making subsequent queries much faster. But this comes at the cost of limiting the versatility of the data. Schema-on-read relates to the modern ELT approach, where the schema is applied to the raw data after reading it from the raw data storage. This approach is versatile since it can obtain multiple views of the same source data using ad hoc schemas. Users potentially have access to more data, since it does not need to go through a rigorous preprocessing step. Whether intentional or accidental, there are many ways in which information can be lost in transformation. We can visualize this loss as follows: Raw data is normally much bigger than transformed data. Since data usually contains noise and redundancy, we can illustrate the information content of data as a proper subset of the data. Correspondingly, we can see that shrinking the data volume can also mean shrinking the information content. Either way, for ETL processes, any lost information may or may not be recoverable, whereas with ELT, all the original information content is left intact because the data is simply copied over as is. Examples of ways information can be lost in transformation processes include lossy data compression, for example, converting floating point values to integers, reducing bit rates on audio or video. Filtering, for example, filtering is usually a temporary selection of a subset of data, but when it is permanent, information can easily be discarded. Aggregation, for example, average yearly sales versus daily or monthly average sales, and edge computing devices, for example, false negatives in surveillance devices designed to only stream alarm signals, not the raw data. In this video, you learned that data transformation is generally about formatting data to suit the needs of the intended application. Common transformation techniques include typing, structuring, normalizing, aggregating, and cleaning. Schema-on-write is the conventional approach used in ETL pipelines, and schema-on-read relates to the modern ELT approach. Finally, ways of losing information in transformation processes include filtering, aggregation, using edge computing devices, and lossy data compression.
+
+Data Loading Techniques
+Welcome to Data Loading Techniques. After watching this video, you will be able to list data loading strategies and techniques, differentiate batch loading from 
+stream loading, explain push and pull methodologies, list the data loading plans, and describe parallel loading. There are two main data loading strategies, full 
+loading and incremental loading. Full loading is used when you want to start tracking transactions in a new data warehouse or when you want to load an initial history
+ into a database. To reiterate, there is no existing content when you use full loading. After full loading is complete, you can use incremental loading to insert data
+ that has changed since the previous loading. With incremental loading strategy, data is appended in the database and not overwritten. It is useful for accumulating 
+ transaction history. You can categorize incremental loading into stream loading and batch loading, depending on the volume and velocity of data. Stream loading is 
+ used when the data is to be loaded real time. Batch loading is used when it's efficient and effective to load data in batches. Let's look at each of these loading 
+ strategies in detail. Stream loading refers to continuous data updates performed in the data warehouse or other storage systems as new data arrives. It is usually 
+ triggered by events, such as real-time data from sensors, like thermostat or motion sensors, social media feed, and IoT devices, and measures, such as data size when a certain amount of data is collected, or threshold values, or when a user requests data, such as online videos, music, or web pages. Batch loading refers to periodic updates made/pushed to the data in the data warehouse or other storage systems, such as daily updates, hourly updates, or weekly updates. Batch data can be scheduled. Some examples include Windows Task Scheduler, Cron jobs in Linux, and daily stock update. Next, let's review push and pull data loading methodologies. Push and pull data loading methodologies are based on a client-server or publisher-subscriber model. A push method is used when the source pushes data into the data warehouse or other storage. While push method can be used for batch loading, it is most suited for stream loading involving real-time data. A pull method is used when the data warehouse pulls the data from the source by subscribing to receive the data. It is useful for scheduled transactions and batch loading. Loading can be serial or parallel. Serial loading is when the data is copied sequentially, one after the other. This is how data loads in the data warehouse by default. You can use parallel loading when you need to load data from different sources parallelly or to split data from one source into chunks and load them parallelly. When compared with serial loading, parallel loading is a faster and optimized approach. Parallel loading can be employed on multiple data streams to boost loading efficiency, particularly when the data is big or has to travel long distances. Similarly, by splitting a single file into smaller chunks, the chunks can be loaded simultaneously. In this video, you learned that full and incremental are data loading strategies. Data can be loaded in batches, or it can be streamed continuously into its destination. Both pull and push methodologies can be used for data loading, and you can employ parallel loading to boost loading efficiency of large volumes of data.
+
+Learning Objectives
+Summarize what happens in each of the three stages of ETL: extraction, transformation, and loading.
+Explain the importance of ETL data pipelines and how they work.
+List popular ETL tools.
+Summarize how to use shell scripting to implement an ETL pipeline.
+Explain how to schedule ETL scripts/tasks
+Perform ETL tasks using shell scripts.
+Define what a data pipeline is.
+Describe data pipeline performance in terms of latency and throughput.
+List key data pipeline processes.
+Describe data pipeline solutions for mitigating data flow bottlenecks.
+Differentiate between batch processing and stream processing.
+List use cases for batch and streaming data pipelines.
+Discuss data pipeline technologies.
+Identify streaming data pipeline tools.
+
+Linux Commands and Shell Scripting
+A shell is a powerful user interface for Unix-like operating systems. It can interpret commands and run other programs. It also enables access to files, utilities, and applications, and is an interactive scripting language. Additionally, you can use a shell to automate tasks. Linux shell commands are used for navigating and working with files and directories. You can also use them for file compression and archiving. 
+In this lesson, you will learn about how shell scripting can be used to implement an ETL pipeline, and how ETL scripts or tasks can be scheduled. 
+If you are not familiar with Linux commands and shell scripting yet, do enjoy the course ‘
+Hands-on Introduction to Linux Commands and Shell Scripting
+’ before diving into this lesson (ETL using Shell Scripting). In the Hands-on Introduction to Linux Commands and Shell Scripting, you will learn about:
+The characteristics of Linux commands and shell scripting
+The different Linux commands and their outputs
+How to schedule jobs using crontab 
+How to work with filters, pipes, and variables
+
+
+ETL Techniques
+ETL stands for Extract, Transform, and Load, and refers to the process of curating data from multiple sources, conforming it to a unified data format or structure, and loading the transformed data into its new environment. 
+
+ 
+
+
+
+Fig. 1. ETL is an acronym used to describe the main processes behind a data pipeline design methodology that stands for Extract-Transform-Load. Data is extracted from disparate sources to an intermediate staging area where it is integrated and prepared for loading into a destination such as a data warehouse. 
+
+Extract 
+Data extraction is the first stage of the ETL process, where data is acquired from various source systems. The data may be completely raw, such as sensor data from IoT devices, or perhaps it is unstructured data from scanned medical documents or company emails. It may be streaming data coming from a social media network or near real-time stock market buy/sell transactions, or it may come from existing enterprise databases and data warehouses.
+
+Transform 
+The transformation stage is where rules and processes are applied to the data to prepare it for loading into the target system. This is normally done in an intermediate working environment called a “staging area.” Here, the data are cleaned to ensure reliability and conformed to ensure compatibility with the target system.  
+
+Many other transformations may be applied, including:  
+
+Cleaning: fixing any errors or missing values  
+
+Filtering: selecting only what is needed  
+
+Joining: merging disparate data sources  
+
+Normalizing: converting data to common units  
+
+Data Structuring: converting one data format to another, such as JSON, XML, or CSV to database tables 
+
+Feature Engineering: creating KPIs for dashboards or machine learning   
+
+Anonymizing and Encrypting: ensuring privacy and security 
+
+Sorting: ordering the data to improve search performance 
+
+Aggregating: summarizing granular data 
+
+Load 
+The load phase is all about writing the transformed data to a target system. The system can be as simple as a comma-separated file, which is essentially just a table of data like an Excel spreadsheet. The target can also be a database, which may be part of a much more elaborate system, such as a data warehouse, a data mart, data lake, or some other unified, centralized data store forming the basis for analysis, modeling, and data-driven decision making by business analysts, managers, executives, data scientists, and users at all levels of the enterprise.
+
+In most cases, as data is being loaded into a database, the constraints defined by its schema must be satisfied for the workflow to run successfully. The schema, a set of rules called integrity constraints, includes rules such as uniqueness, 
+referential integrity
+, and mandatory fields. Thus such requirements imposed on the loading phase help ensure overall data quality. 
+
+
+ETL Workflows as Data Pipelines 
+Generally, an ETL workflow is a well thought out process that is carefully engineered to meet technical and end-user requirements.  
+Whe
+Traditionally, the overall accuracy of the ETL workflow has been a more important requirement than speed, although efficiency is usually an important factor in minimizing resource costs. To boost efficiency, data is fed through a data pipeline in smaller packets (see Figure 2). While one packet is being extracted, an earlier packet is being transformed, and another is being loaded. In this way, data can keep moving through the workflow without interruption. Any remaining bottlenecks within the pipeline can often be handled by parallelizing slower tasks.  
+
+
+Fig 2. Data packets being fed in sequence, or “piped” through the ETL data pipeline. Ideally, by the time the third packet is ingested, all three ETL processes are running simultaneously on different packets. 
+
+With conventional ETL pipelines, data is processed in batches, usually on a repeating schedule that ranges from hours to days apart. For example, records accumulating in an Online Transaction Processing System (OLTP) can be moved as a daily batch process to one or more Online Analytics Processing (OLAP) systems where subsequent analysis of large volumes of historical data is carried out. 
+
+Batch processing intervals need not be periodic and can be triggered by events, such as  
+
+when the source data reaches a certain size, or  
+
+when an event of interest occurs and is detected by a system, such as an intruder alert, or  
+
+on-demand, with web apps such as music or video streaming services 
+
+Staging Areas 
+ETL pipelines are frequently used to integrate data from disparate and usually siloed systems within the enterprise. These systems can be from different vendors, locations, and divisions of the company, which can add significant operational complexity. As an example, (see Figure 3) a cost accounting OLAP system might retrieve data from distinct OLTP systems utilized by the separate payroll, sales, and purchasing departments.
+
+ 
+
+
+Fig 3. An ETL data integration pipeline concept for a Cost Accounting OLAP, fed by disparate OLTP systems within the enterprise. The staging area is used in this example to manage change detection of new or modified data from the source systems, data updates, and any transformations required to conform and integrate the data prior to loading to the OLAP. 
+
+ETL Workflows as DAGs 
+ETL workflows can involve considerable complexity. By breaking down the details of the workflow into individual tasks and dependencies between those tasks, one can gain better control over that complexity. Workflow orchestration tools such as Apache Airflow do just that.
+
+Airflow represents your workflow as a directed acyclic graph (DAG). A simple example of an Airflow DAG is illustrated in Figure 4. Airflow tasks can be expressed using predefined templates, called operators. Popular operators include Bash operators, for running Bash code, and Python operators for running Python code, which makes them extremely versatile for deploying ETL pipelines and many other kinds of workflows into production. 
+
+
+Fig 4. An Apache Airflow DAG representing a workflow. The green boxes represent individual tasks, while the arrows show dependencies between tasks. The three tasks on the left, ‘runme_j’ are jobs that run simultaneously along with the ‘also_run_this’ task. Once the ‘runme_j’ tasks complete, the ‘run_after_loop’ task starts. Finally, ‘run_this_last’ engages once all tasks have finished successfully. 
+
+Popular ETL tools 
+There are many ETL tools available today. Modern enterprise grade ETL tools will typically include the following features: 
+
+Automation: Fully automated pipelines 
+
+Ease of use: ETL rule recommendations 
+
+Drag-and-drop interface: “o-code” rules and data flows 
+
+Transformation support: Assistance with complex calculations 
+
+Security and Compliance: Data encryption and HIPAA, GDPR compliance 
+
+Some well-known ETL tools are listed below, along with some of their key features. Both commercial and open-source tools are included in the list. 
+
+Talend Open Studio
+Supports big data, data warehousing, and profiling
+
+Includes collaboration, monitoring, and scheduling
+
+Drag-and-drop GUI for ETL pipeline creation
+
+Automatically generates Java code
+
+Integrates with many data warehouses
+
+Open-source
+
+AWS Glue
+ETL service that simplifies data prep for analytics 
+
+Suggests schemas for storing your data
+
+Create ETL jobs from the AWS Console
+
+IBM InfoSphere DataStage 
+A data integration tool for designing, developing, and running ETL and ELT jobs
+
+The data integration component of IBM InfoSphere Information Server
+
+Drag-and-drop graphical interface
+
+Uses parallel processing and enterprise connectivity in a highly scalable platform
+
+Alteryx 
+Self-service data analytics platform 
+
+Drag-and-drop accessibility to ETL tools
+
+No SQL or coding required to create pipelines
+
+Apache Airflow and Python
+Versatile “configuration” as code data pipeline platform
+
+Open-sourced by Airbnb
+
+Programmatically author, schedule, and monitor workflows
+
+Scales to Big Data
+
+Integrates with cloud platforms
+
+The Pandas Python library 
+Versatile and popular open-source programming tool 
+
+Based on data frames – table-like structures
+
+Great for ETL, data exploration, and prototyping 
+
+Doesn’t readily scale to Big Data
+
+ETL Using Shell Scripting-  describe how shell scripting can be used to implement an ETL pipeline and explain how ETL scripts or tasks can be scheduled. Imagine a scenario that you have been tasked with: reporting the hourly average, minimum and maximum temperatures from a remote sensor that supplies the temperature on demand and feeding the results to a dashboard every minute. You are given APIs that read the temperature and print it to standard output and load the stats to a repository which is available to a reporting tool such as a dashboard. Here is an outline of how this can be achieved using bash scripting. Lets sketch the workflow for your ETL pipeline starting with the weather station and its data interface. The extraction step involves obtaining a current temperature reading from the sensor using the supplied get _temp_api. You can append the reading to a log file, say temperature.log. Since you will only need to keep the most recent hour of readings, buffer the last 60 readings and then just overwrite the log file with the buffered readings. Next, call a program, for example a python script called get_stats.py, which calculates the temperature stats from the 60-minute log and loads the resulting stats into the reporting system using the load_stats_api. The stats can then be used to display a live chart showing the hourly min, max, and average temperatures. You will also want to schedule your workflow to run every minute. Start by creating a shell script called Temperature_ETL.sh. You can create the file by using the touch command. Next, open the file with any text editor such as gedit. In the editor, type in the bash shebang to turn your file into a bash shell script. Now you can add the following comments to help outline your tasks. Extract a temperature reading from the sensor using the supplied get_temp_api. Append the reading to a log file, say temperature.log. You only need to keep the most recent hour of readings, so buffer the last 60 readings. Call a program say a Python script called get_stats.py, which calculates the temperature stats from the 60-minute log and load the resulting stats into the reporting system using the supplied API. After you finish writing the ETL bash script, you will need to schedule it to run every minute. Now you can fill in some details for your task comments start by initializing your temperature log file on the command line with the touch command. In the text editor, enter a command to call the API to read a temperature and append the reading to the temperature log. Now just keep the last hour or 60 lines of your log file by overwriting the temperature log with its last 60 lines. This completes the data extraction step. Suppose you have written a Python script called get_stats.py which reads temperatures from a log file, calculates the temperature stats, and writes the results to an output file so that the input and output file names are specified as command-line arguments. You can add the following line to your ETL script, which calls Python3 and invokes your Python script get_stats.py using the readings in temperature.log and writes the temperature stats to a CSV file called temp_stats.csv. This completes the transformation component of your ETL script. Finally, you can load the resulting stats into the reporting system using the supplied API by calling the API and specifying the temp_stats.csv as a command-line argument. Next, don't forget to set permissions to make your shell script executable. Now it's time to schedule your ETL job. Open the crontab editor. Schedule your job to run every minute of every day, close the editor, and save your edits. Your new ETL job is now scheduled and running in production. In this video you learned that ETL pipelines can be built from basic bash scripts, and an ETL job can be scheduled to run by creating a cron job for your bash script. [MUSIC]
+
+Exercise 1 - Extracting data using 'cut' command
+The filter command cut helps us extract selected characters or fields from a line of text.
+
+Extracting characters.
+The command below shows how to extract the first four characters.
+
+1 echo "database" | cut -c1-4
+Copied!Executed!
+You should get the string ‘data’ as output.
+
+The command below shows how to extract 5th to 8th characters.
+
+1 echo "database" | cut -c5-8
+Copied!Executed!
+You should get the string ‘base’ as output.
+
+Non-contiguous characters can be extracted using the comma.
+
+The command below shows how to extract the 1st and 5th characters.
+
+1 echo "database" | cut -c1,5
+Copied!Executed!
+You get the output : ‘db’
+
+Extracting fields/columns
+We can extract a specific column/field from a delimited text file, by mentioning
+
+the delimiter using the -d option, or
+the field number using the -f option.
+The /etc/passwd is a “:” delimited file.
+
+The command below extracts usernames (the first field) from /etc/passwd.
+
+1 cut -d":" -f1 /etc/passwd
+Copied!Executed!
+The command below extracts multiple fields 1st, 3rd, and 6th (username, userid, and home directory) from /etc/passwd.
+
+1 cut -d":" -f1,3,6 /etc/passwd
+Copied!Executed!
+The command below extracts a range of fields 3rd to 6th (userid, groupid, user description and home directory) from /etc/passwd.
+
+1 cut -d":" -f3-6 /etc/passwd 
+
+
+Exercise 2 - Transforming data using 'tr'
+tr is a filter command used to translate, squeeze, and/or delete characters.
+
+Translate from one character set to another
+The command below translates all lower case alphabets to upper case.
+
+1
+echo "Shell Scripting" | tr "[a-z]" "[A-Z]"
+Copied!Executed!
+You could also use the pre-defined character sets also for this purpose:
+
+1
+echo "Shell Scripting" | tr "[:lower:]" "[:upper:]"
+Copied!Executed!
+The command below translates all upper case alphabets to lower case.
+
+1
+echo "Shell Scripting" | tr  "[A-Z]" "[a-z]"
+Copied!Executed!
+Squeeze repeating occurrences of characters
+The -s option replaces a sequence of a repeated characters with a single occurrence of that character.
+
+The command below replaces repeat occurrences of ‘space’ in the output of ps command with one ‘space’.
+
+1
+ps | tr -s " "
+Copied!Executed!
+In the above example, the space character within quotes can be replaced with the following : "[\:space\:]".
+
+Delete characters
+We can delete specified characters using the -d  option.
+
+The command below deletes all digits.
+
+1
+echo "My login pin is 5634" | tr -d "[:digit:]"
+Copied!Executed!
+The output will be : ‘My login pin is’
+
+Exercise 3 - Start the PostgreSQL database.
+From the SkillsNetwork tools, under Databases choose PostgresSQL Database server and click Start to start the server. This will take a few mins.
+
+Click PostgresSQL CLI on the screen to start interacting wit the PostgresSQL server.
+
+This will start the interactive psql client which connects to the PostgreSQL server with postgres=# prompt as shown below.
+
+Exercise 4 - Create a table
+In this exercise we will create a table called users in the PostgreSQL database using PostgresSQL CLI. This table will hold the user account information.
+
+The table users will have the following columns:
+
+uname
+
+uid
+
+home
+
+You will connect to template1 database which is already available by default. To connect to this database, run the following command at the ‘postgres=#’ prompt.
+
+1
+\c template1
+Copied!
+You will get the following message.
+
+You are now connected to database "template1" as user "postgres".
+
+Also, your prompt will change to ‘template1=#’.
+
+Run the following statement at the ‘template1=#’ prompt to create the table.
+1
+create table users(username varchar(50),userid int,homedirectory varchar(100));
+Copied!
+If the table is created successfully, you will get the message below.
+
+CREATE TABLE
+
+Exercise 5 - Loading data into a PostgreSQL table.
+In this exercise, you will create a shell script which does the following.
+
+Extract the user name, user id, and home directory path of each user account defined in the /etc/passwd file.
+Save the data into a comma separated (CSV) format.
+Load the data in the csv file into a table in PostgreSQL database.
+Open a new Terminal.
+new_terminal.png
+
+In the terminal, run the following command to create a new shell script named csv2db.sh.
+1
+touch csv2db.sh
+Copied!Executed!
+Open the file in the editor. Copy and paste the following lines into the newly created file.
+ Open csv2db.sh in IDE
+
+1
+2
+3
+4
+5
+6
+7
+8
+# This script
+# Extracts data from /etc/passwd file into a CSV file.
+# The csv data file contains the user name, user id and
+# home directory of each user account defined in /etc/passwd
+# Transforms the text delimiter from ":" to ",".
+# Loads the data from the CSV file into a table in PostgreSQL database.
+Copied!
+Save the file by presseing Ctrl+s or by using the File->Save menu option.
+
+You need to add lines of code to the script that will xtract user name (field 1), user id (field 3), and home directory path (field 6) from /etc/passwd file using the cut command.
+
+Copy the following lines and paste them to the end of the script and save the file.
+
+1
+2
+3
+4
+5
+6
+7
+8
+# Extract phase
+echo "Extracting data"
+# Extract the columns 1 (user name), 2 (user id) and 
+# 6 (home directory path) from /etc/passwd
+cut -d":" -f1,3,6 /etc/passwd
+Copied!
+Run the script.
+1
+bash csv2db.sh
+Copied!Executed!
+Verify that the output contains the three fields, that you extracted.
+
+Change the script to redirect the extracted data into a file named extracted-data.txt
+
+Replace the cut command at end of the script with the following command.
+
+1
+cut -d":" -f1,3,6 /etc/passwd > extracted-data.txt
+Copied!
+Run the script.
+1
+bash csv2db.sh
+Copied!Executed!
+Run the command below to verify that the file extracted-data.txt is created, and has the content.
+1
+cat extracted-data.txt
+Copied!Executed!
+The extracted columns are separated by the original “:” delimiter. You need to convert this into a “,” delimited file. Add the below lines at the end of the script and save the file.
+1
+2
+3
+4
+5
+# Transform phase
+echo "Transforming data"
+# read the extracted data and replace the colons with commas.
+tr ":" "," < extracted-data.txt  > transformed-data.csv
+Copied!
+Run the script.
+1
+bash csv2db.sh
+Copied!Executed!
+Run the command below to verify that the file transformed-data.csv is created, and has the content.
+1
+cat transformed-data.csv
+Copied!
+To load data from a shell script, you will use the psql client utility in a non-interactive manner. This is done by sending the database commands through a command pipeline to psql with the help of echo command.
+PostgreSQL command to copy data from a CSV file to a table is COPY.
+
+The basic structure of the command which we will use in our script is,
+
+COPY table_name FROM 'filename' DELIMITERS 'delimiter_character' FORMAT;
+
+Now, add the lines below to the end of the script ‘csv2db.sh’ and save the file.
+
+
+# Load phase
+echo "Loading data"
+# Set the PostgreSQL password environment variable.
+# Replace <yourpassword> with your actual PostgreSQL password.
+export PGPASSWORD=<yourpassword>;
+# Send the instructions to connect to 'template1' and
+# copy the file to the table 'users' through command pipeline.
+echo "\c template1;\COPY users  FROM '/home/project/transformed-data.csv' DELIMITERS ',' CSV;" | psql --username=postgres --host=postgres
+Copied!
+
+Exercise 6 - Execute the final script
+Run the script.
+1
+bash csv2db.sh
+Copied!
+Now, add the line below to the end of the script 'csv2db.sh' and save the file.
+1
+echo "SELECT * FROM users;" | psql --username=postgres --host=postgres template1
+Copied!
+Run the script to verify that the table users is populated with the data.
+1
+bash csv2db.sh
+
+Practice exercises
+Copy the data in the file ‘web-server-access-log.txt.gz’ to the table ‘access_log’ in the PostgreSQL database ‘template1’.
+
+The file is available at the location : https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0250EN-SkillsNetwork/labs/Bash%20Scripting/ETL%20using%20shell%20scripting/web-server-access-log.txt.gz
+
+The following are the columns and their data types in the file:
+
+a. timestamp - TIMESTAMP
+b. latitude - float
+c. longitude - float
+d. visitorid - char(37)
+e. accessed_from_mobile - boolean
+f. browser_code - int
+The columns which we need to copy to the table are the first four coumns : timestamp, latitude, longitude and visitorid.
+
+NOTE: The file comes with a header. So use the ‘HEADER’ option in the ‘COPY’ command.
+
+The problem may be solved by completing the following tasks:
+
+Go to the SkillsNetwork Tools menu and start the Postgres SQL server if it is not already running.
+
+Create a table named access_log to store the timestamp, latitude, longitude and visitorid.
+
+Click here for Hint
+Click here for Solution
+Task 3. Create a shell script named cp-access-log.sh and add commands to complete the remaining tasks to extract and copy the data to the database.
+
+Create a shell script to add commands to complete the rest of the tasks.
+
+Click here for Hint
+Task 4. Download the access log file.
+
+Add the wget command to the script to download the file.
+
+1
+wget "https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0250EN-SkillsNetwork/labs/Bash%20Scripting/ETL%20using%20shell%20scripting/web-server-access-log.txt.gz"
+Copied!
+Task 5. Unzip the gzip file.
+
+Add the code, to run the gunzip command to unzip the .gz file and extract the .txt file, to the script.
+
+1
+2
+# Unzip the file to extract the .txt file.
+gunzip -f web-server-access-log.txt.gz
+Copied!
+The -f option of gunzip is to overwrite the file if it already exists.
+
+Task 6. Extract required fields from the file.
+
+Extract timestamp, latitude, longitude and visitorid which are the first four fields from the file using the cut command.
+
+The columns in the web-server-access-log.txt file is delimited by ‘#’.
+
+Click here for Hint
+Click here for Solution
+Task 7. Redirect the extracted output into a file.
+
+Redirect the extracted data into a file named extracted-data.txt
+
+Click here for Hint
+Click here for Solution
+Task 8. Transform the data into CSV format.
+
+The extracted columns are separated by the original “#” delimiter.
+
+We need to convert this into a “,” delimited file.
+
+Click here for Hint
+Click here for Solution
+Task 9. Load the data into the table access_log in PostgreSQL
+
+PostgreSQL command to copy data from a CSV file to a table is COPY.
+
+The basic structure of the command is,
+
+1
+COPY table_name FROM 'filename' DELIMITERS 'delimiter_character' FORMAT;
+Copied!
+The file comes with a header. So use the ‘HEADER’ option in the ‘COPY’ command.
+
+Invoke this command from the shellscript, by sending it as input to ‘psql’ filter command.
+
+Click here for Hint
+Click here for Solution
+Step 1: Add the lines below to the end of the script ‘cp-access-log.sh’ and save the file.
+
+1
+2
+3
+4
+5
+6
+7
+# Load phase
+echo "Loading data"
+# Send the instructions to connect to 'template1' and
+# copy the file to the table 'access_log' through command pipeline.
+echo "\c template1;\COPY access_log  FROM '/home/project/transformed-data.csv' DELIMITERS ',' CSV HEADER;" | psql --username=postgres --host=localhost
+Copied!
+Task 10. Execute the final script.
+
+Run the final script.
+
+Click here for Solution
+Run the following command at the terminal:
+
+1
+bash cp-access-log.sh
+Copied!
+The completed bash script would be as below.
+
+# cp-access-log.sh
+# This script downloads the file 'web-server-access-log.txt.gz'
+# from "https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0250EN-SkillsNetwork/labs/Bash%20Scripting/ETL%20using%20shell%20scripting/".
+# The script then extracts the .txt file using gunzip.
+# The .txt file contains the timestamp, latitude, longitude 
+# and visitor id apart from other data.
+# Transforms the text delimeter from "#" to "," and saves to a csv file.
+# Loads the data from the CSV file into the table 'access_log' in PostgreSQL database.
+# Download the access log file
+wget "https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0250EN-SkillsNetwork/labs/Bash%20Scripting/ETL%20using%20shell%20scripting/web-server-access-log.txt.gz"
+# Unzip the file to extract the .txt file.
+gunzip -f web-server-access-log.txt.gz
+# Extract phase
+echo "Extracting data"
+# Extract the columns 1 (timestamp), 2 (latitude), 3 (longitude) and 
+# 4 (visitorid)
+cut -d"#" -f1-4 web-server-access-log.txt > extracted-data.txt
+# Transform phase
+echo "Transforming data"
+# read the extracted data and replace the colons with commas.
+tr "#" "," < extracted-data.txt > transformed-data.csv
+# Load phase
+echo "Loading data"
+# Send the instructions to connect to 'template1' and
+# copy the file to the table 'access_log' through command pipeline.
+echo "\c template1;\COPY access_log  FROM '/home/project/transformed-data.csv' DELIMITERS ',' CSV HEADER;" | psql --username=postgres --host=localhost
+Copied!
+Task 11. Verify by querying the database.
+
+Click here for Hint
+Click here for Solution
+Run the command below at Postgres SQL CLI prompt.
+
+1
+SELECT * from access_log;
+Copied!
+You should see the records displayed on screen.
+
+Data Pipelines
+[MUSIC] Welcome to Introduction to Data Pipelines. After watching this video, you will be able to define what a pipeline is, describe data pipeline performance in 
+terms of latency and throughput, and give examples of data pipeline use cases. The concept of a pipeline applies broadly to any set of processes that are connected 
+to each other sequentially. This means that the output of one process is passed along as input to the next process in a chain. For example, one way to move boxes 
+from one place to another is to have a chain of friends, each passing the boxes one by one up the line to the nearest friend. Each friend is a processor whose 
+function is identical, get a box, pass a box. Mass production is similar, but transformations may differ from stage to stage. Data pipelines are pipelines that 
+specifically move or modify data. The purpose of a data pipeline is to move data from one place or form to another. A data pipeline is a system which extracts data 
+and passes it along to optional transformation stages for final loading. This includes low-level hardware architectures, but our focus here is on data pipelines as 
+architectures driven by software processes such as commands, programs, and processing threads. The simple bash pipe command in Linux can be used as the glue that 
+connects such processes together. We can think of data flowing through a pipeline in the form of data packets. A term which we will use to broadly refer to units of 
+data. Packets can range in size from a single record or event to large collections of data. Here we have data packets queued for ingestion to the pipeline. The length
+of the data pipeline represents the time it takes for a single packet to traverse the pipeline. The arrows between packets represent the throughput delays or the 
+times between successive packet arrivals. You have just been introduced to two key performance considerations regarding data pipelines. The first is latency, which is the total time it takes for a single packet of data to pass through the pipeline. Equivalently, latency is the sum of the individual time spent during each processing stage within the pipeline. Thus, overall latency is limited by the slowest process in the pipeline. For example, no matter how fast your internet service is, the time it takes to load a web page will be decided by the server speed. The second performance consideration is called throughput. It refers to how much data can be fed through the pipeline per unit of time. Processing larger packets per unit of time increases throughput. Coming back to our example of having a chain of friends passing boxes from one to another, we can see in the right image within limits, that passing bigger boxes can increase productivity. Let's list a few of the applications of data pipelines from the multitude of use cases. The simplest pipeline has no transformations and is used as file backups, integrating disparate raw data sources into a data lake, moving transactional records to a data warehouse, streaming data from IoT devices to make information available in the form of dashboards or learning systems, preparing raw data for machine learning development or production, and message sending and receiving, such as with email, SMS, or online video meetings. In this video, you learned that the purpose of a data pipeline is to move data from one place or form to another. We can visualize data flowing through a pipeline as a series of data packets flowing in and out, one by one. Latency and throughput are key design considerations for data pipelines, and use cases for data pipelines are many and range from simple copy and paste like data backups to online video meetings. [MUSIC]
+
+
+Welcome to Key Data Pipeline Processes. After watching this video, you will be able to list key data pipeline processes, describe data pipeline monitoring 
+considerations, and describe data pipeline solutions for mitigating data flow bottlenecks. Data pipeline processes typically have the following stages in common. 
+Extraction of data from one or more data sources, ingestion of the extracted data into the pipeline, optional data transformation stages within the pipeline and 
+final loading of the data into a destination facility, a mechanism for scheduling or triggering jobs to run, monitoring the entire workflow, and maintenance and optimization as required to keep the pipeline up and running smoothly. The data pipeline needs to be monitored once it is in production to ensure data integrity. Some key monitoring considerations include latency, or the time it takes for data packets to flow through the pipeline. Throughput demand, the volume of data passing through the pipeline over time. Errors and failures caused by factors such as network overloading and failures at the source or destination systems. Utilization rate, or how fully the pipelines resources are being utilized, which affects cost. And lastly, the pipeline should also have a system for logging events and alerting administrators when failures occur. Ideally at the moment one stage has completed its process on a packet of data, the next packet in the queue would be available to it just in time. In that case, the stage is never left to idle while the pipeline is operating and there are no upstream bottlenecks. Extending this notion to all stages of the pipeline implies that all stages should take the same amount of time to process a packet. This means that there are no bottlenecks and we can say that the entire pipeline has been load balanced. Lets take a closer look at this idea. Suppose your pipeline has a bottleneck in one of its stages, such as the longer red section here, which has more latency than the other stages in the pipeline. If it's possible to parallelize that stage, for example by splitting the data into two concurrent stages like this, then you can reduce this stage's latency. There will be a little overhead in managing the parallelization and recombination of the output back into the pipeline, but the overall latency will be reduced. Due to the time and cost considerations, pipelines are rarely perfectly load balanced. This means there will almost always be stages which are bottlenecks in the data flow. If such a stage can be parallelized, then it can be sped up to align better with the flow rate. A simple way to parallelize a process is to replicate it on multiple CPUs cores or threads and distribute data packets as they arrive in an alternating fashion amongst the replicated channels. Pipelines that incorporate parallelism are referred to as being dynamic or nonlinear, as opposed to static, which applies to serial pipelines. Further synchronization between stages is likely still possible, and a typical solution is to include input and output or I/O buffers as needed to smooth out the flow of data. An I/O buffer is a holding area for data placed between processing stages having different or varying delays. Buffers can also be used to regulate the output of stages having variable processing rates and thus may be used to improve throughput. Single input and output buffers are also used to distribute and gather loads on parallelized stages. In this video, you learned that in addition to extraction, transformation, and loading, data, pipeline processes include scheduling, triggering, monitoring, maintenance, and optimization. Pipeline monitoring considerations include tracking latency, throughput, resource utilization, and failures. And finally, unbalanced or varying loads can be mitigated by introducing parallelization and I/O buffers at bottlenecks.
+
+Welcome to Batch versus Streaming Data Pipeline Use Cases. After watching this video, you will be able to differentiate between batch and streaming data pipelines. 
+Describe micro-batch and hybrid Lambda data pipelines. List use cases for batch data pipelines and list use cases for streaming data pipelines. Batch data pipelines 
+are used when data sets need to be extracted and operated on as one big unit. Batch processes typically operate periodically on a fixed schedule, ranging from hours 
+to weeks apart. They can also be initiated based on triggers, such as when the source data reaches a certain size. Batch processes are appropriate for cases which 
+don't depend on recency of data. Typically, batch data pipelines are employed when accuracy is critical, but competitive, mission-critical streaming technologies are 
+rapidly maturing. Streaming data pipelines are designed to ingest packets of information, such as individual credit card transactions or social media activities, one 
+by one, in rapid succession. Stream processing is used when results are required with minimal latency, essentially in real time. With streaming pipelines, records or 
+events are processed immediately as they occur. Event streams can also be appended to storage to build up a history for later use. Users, including other software 
+systems, can publish or write and subscribe to or read event streams. By decreasing the batch size and increasing the refresh rate of individual batch processes, you 
+can achieve near real-time processing. Using micro-batches may also help with load balancing, leading to lower overall latency. Useful when only very short windows 
+of data are required for transformations. The use case differences between batch and stream processing come down to a trade-off between accuracy and latency 
+requirements. With batch processing, for example, data can be cleaned, and thus you can get higher-quality output, but this comes at the cost of increased latency. 
+If you require low latency, your tolerance for faults likely has to increase. A Lambda architecture is a hybrid architecture designed for handling big data. Lambda 
+architectures combine batch and streaming data pipeline methods. Historical data is delivered in batches to the batch layer, and real-time data is streamed to a speed
+ layer. These two layers are then integrated in the serving layer. The data stream is used to fill in the latency gap caused by the processing in the batch layer. 
+ Lambda can be used in cases where access to earlier data is required, but speed is also important. A downside to this approach is the complexity involved in the 
+ design. You usually choose a Lambda architecture when you are aiming for accuracy and speed. Example use cases for batch data pipelines include periodic data 
+ backups and transaction history loading, processing of customer orders and billing, data modeling on slowly varying data, mid- to long-range sales forecasting and 
+ weather forecasting, analysis of historical data and diagnostic medical image processing. Use cases for streaming data pipelines are on the rise and include cases 
+ such as watching movies and listening to music or podcasts, social media feeds and sentiment analysis, fraud detection, user behavior analysis, and targeted 
+ advertising, stock market trading, real-time product pricing, and recommender systems. In this video, you learned that batch pipelines extract and operate on batches of data. Batch processing is used when accuracy is critical, or there is no need for the most recent. Streaming data pipelines ingest data packets one by one in rapid succession. Streaming pipelines are used when the most current data is needed. Micro-batch processing can be used to simulate real-time data streaming, and Lambda architecture can be used in cases where access to earlier data is required, but speed is also important.
+
+Welcome to Apache Airflow Overview. After watching this video, you will be able to recognize Apache Airflow as a platform to programmatically author, schedule, and monitor workflows. List the main features and principles of Apache Airflow, and list common use cases for Apache Airflow. Apache Airflow is a great, open-source workflow orchestration tool that is supported by an active community. It is a platform that lets you build and run workflows, such as batch data pipelines. With Apache Airflow, a workflow is represented as a directed acyclic graph (DAG). The DAG is made of tasks that are arranged in a specific order of execution. Note that Apache Airflow is not a data streaming solution. Apache Airflow is a workflow manager, and is not an event or data streaming solution. Let's take a look at a simplified overview of Apache Airflow's basic components. Airflow comes with a built-in scheduler, which handles the triggering of all scheduled workflows. The scheduler is responsible for submitting individual tasks from each scheduled workflow to the executor. The executor handles the running of these tasks by assigning them to workers, which then run the tasks. The web server component of the Airflow provides a user-friendly, graphical user interface. From this UI, you can inspect, trigger, and debug any of your DAGs and their individual tasks. The DAG directory contains all of your DAG files, ready to be accessed by the scheduler, the executor, and each of its employed workers. Finally, Airflow hosts a metadata database, which is used by the scheduler, executor, and the web server to store the state of each DAG and its tasks. The tasks themselves describe what to do. In this example DAG, the tasks include data ingestion, data analysis, saving the data, generating reports, and triggering other systems, such as reporting any errors by email. Let's have a look at the life cycle of a task's state. In this diagram, you can see how Apache Airflow might assign states to a task during its lifecycle. No status -- The task has not yet been cued for execution. Scheduled -- The scheduler has determined that the task's dependencies are met and has scheduled it to run. Removed -- For some reason, the task has vanished from the DAG since the run started. Upstream failed -- An upstream task has failed. Queued -- The task has been assigned to the executor, and is waiting for a worker to become available. Running -- The task is being run by a worker. Success -- The task completed successfully, and no errors were encountered. Failed -- The task could not be completed successfully due to an error, and Up for retry -- The task will be rescheduled as per the retrial configuration. Ideally, a task should flow throughout the scheduler from no status, to scheduled, to queued, to running, and finally to success. Now, let's have a look at the five main features and benefits of Apache Airflow. Pure Python. Create your workflows using standard Python. This allows you to maintain full flexibility when building your data pipelines. Useful UI provides the ability to monitor the workflow, schedule the workflow, or manually run it, and manage the workflows via a sophisticated web app, offering you full insight into the status of your tasks. Integration. Apache Airflow provides many plug-and-play integrations, such as IBM data band that helps achieve continuous observability and monitoring. Easy to use. A workflow is easy to create and deploy for anyone with prior knowledge of Python. The Airflow pipeline can combine many tasks created with many options of operators and sensors without any limits. Airflow does not limit the scope of your pipelines. Finally, the open source feature. Whenever you want to share your improvement, you can do this by opening a pull request. Airflow has many active users who are sharing their experiences in the Apache Airflow community. Apache Airflow pipelines are built on four main principles. They are scalable. Airflow has a modular architecture and uses a message queue to orchestrate an arbitrary number of workers. It is ready to scale to infinity. Dynamic. Airflow pipelines are defined in Python, and allow dynamic pipeline generation. Thus, your pipelines can contain multiple simultaneous tasks. Extensible. You can easily define your own operators and extend libraries to suit your environment. Lean. Airflow pipelines are lean and explicit. Parameterization is built into its core using the powerful Jinja templating engine. Apache Airflow supports various companies in reaching their goals. Let's look at some examples. Adobe Experience platform uses Apache Airflow's plugin interface to write custom operators to meet their use cases. Apache Airflow manages all scheduling and dependency management. As a result, Adobe and Adobe Experience platform teams can focus on business use cases. Apache Airflow enabled Adyen to extend upon existing operators and sensors to make writing ETL DAGs as easy as possible. Big Fish uses Airflow to programmatically control their workflows and efficiently use the Web UI to monitor the task. Walmart uses airflow to automate its data processing tasks, such as extracting data from its databases, and loading data into its data warehouse. In this video, you learned that Apache Airflow is a platform to programmatically author, schedule, and monitor workflows. The five main features of Airflow are its use of Python, its intuitive and useful user interface, extensive plug and play integrations, ease of use, and the fact that it is open source. You also learn that Apache Airflow is scalable, dynamic, extensible, and lean. Finally, defining and organizing machine learning and pipeline dependencies with Apache Airflow is one of the common use cases.
+
+Welcome to Advantages of Representing Data Pipelines as DAGs in Apache Airflow. After watching this video, you will be able to define what a DAG is, describe workflows as DAGs of tasks and dependencies, outline the components of a DAG definition file, describe how Apache Airflow Scheduler executes tasks on an array of workers, and list key advantages of defining workflows as code. A DAG is a special kind of graph. A simple graph consists of nodes and edges like this. Here, the circles are called nodes, and the lines connecting pairs of nodes are called edges. A directed graph is also a graph, but it has more structure. As you can see here, each edge has a specified direction. It connects a starting node with another node. Lastly, the acyclic part means there are no loops or sequences of directed edges that return to a node in the chain, such as the red cycle shown here. Let's take a look at a few examples of DAGs. The simplest non-trivial DAG has a single directed edge and looks like this. It has a single root node, which is connected to a single terminal node. Here's another DAG, which we've already seen. It also has single root and terminal nodes. Here's an example of a tree, which is a commonly used graph for representing family trees or directory structures. All trees are DAGs, but not all DAGs are trees. For example, this DAG is not a tree since it has more than one root node. A dag doesn't impose those restrictions, so a single node can have multiple parents, and there may be multiple nodes with no parents. DAGs are used to represent workflows or pipelines in Apache Airflow. Each task performed by your data pipeline is represented as a node in a DAG, while each of the dependencies between two tasks in your pipeline are represented as a directed edge in the DAG. In other words, edges define the order in which the two tasks should run, thus, DAGs are used in Airflow to define what tasks should run and in what sequence they should run. A DAG is defined in a Python script, which represents the DAG structure, thus, the tasks and their dependencies are defined as code. Also, scheduling instructions are specified as code in the DAG script. Let's take a closer look at the nodes or tasks in a DAG. Just like the DAG itself, each task performed within your DAG is also written in Python. Each task implements an operator, for example, a Python operator is used to deploy some Python code, a SQL operator to run a SQL query, and a bash operator can be used to run a bash command. Operators are used to define what each task in your DAG does. Sensors are a class of operators which are used to poll for a certain time or condition to be met. For example, you can use a sensor to check every 30 seconds whether a file exists or whether another DAG has finished running. There are many other types of operators, including email and HTTP request operators. An Apache Airflow DAG is a Python script consisting of the following logical blocks; library imports, DAG arguments, DAG definition, task definitions, and task pipeline. Let's briefly go over an example. The first block of your DAG definition script is where you import any Python libraries that you require, for example, the from Airflow import DAG command to import the DAG module from the airflow collection. Next block of code is for specifying default arguments for your DAG, such as its default start date. Next comes the DAG definition or instantiation block for your DAG, which specifies things like your default arguments. Continuing along with our example DAG code, individual task definitions, which are the nodes of the DAG, form your DAGs next building block. In this example, we have two tasks which happen to be bash operators. Finally, the task pipeline specifies the dependencies between your tasks. Here, Task 2 depends on the result of Task 1, and this forms the last logical block of your DAG script. Your new DAG has been created, but it hasn't yet been deployed. To that end, Airflow Scheduler is designed to run as a persistent service within the Airflow production environment. Apache Airflow Scheduler can be used to deploy your workflow on an array of workers. It follows the tasks and dependencies that you specified in your DAG. Once you start an Airflow Scheduler instance, your DAGs will start running based on the start date you specified as code in each of your DAGs. After that, the scheduler triggers each subsequent DAG run according to the schedule interval that you specified. One of the key advantages of Apache Airflow's approach to representing data pipelines as DAGs is the fact that they are expressed as code. When workflows are defined as code, they become more maintainable. Developers can follow explicitly what has been specified by reading the code. Versionable; code revisions can easily be tracked by a version control system, such as Git. Collaborative; teams of developers can easily collaborate on both development and maintenance of the code for the entire workflow. Testable; any revisions can be passed through unit tests to ensure the code still works as intended. In this video, you learned that in Apache Airflow, DAGs are workflows defined as Python code. Tasks, which are nodes in your DAG, are created by implementing air flows built-in operators. Pipelines are specified as dependencies between tasks, which are the directed edges between nodes in your DAG. Airflow Scheduler schedules and deploys your DAGs. Finally, the key advantage of Apache Airflow's approach to representing data pipelines as DAGs is the fact that they are expressed as code. Accordingly, it makes your data pipelines more maintainable, testable, and collaborative.
+
+Welcome to Apache Airflow UI. After watching this video, you will be able to identify current direct acyclic graphs, DAGs, in your environment, list different ways 
+to visualize a specific DAG, review the code that defines your DAG, analyze the duration of each task in your DAG over multiple runs, and select context metadata 
+for any task instance. Let's start with the landing page for the Apache Airflow user interface. The image on the screen is how the interface appears in your browser. 
+It defaults to the DAGs view, which is a table containing data about each DAG in your environment. Each row displays interactive information about a DAG in your 
+environment, such as the DAG's name, the DAG's owner, which is set to Airflow, indicating this is a built-in example from Airflow, the status of the tasks from the 
+current or most recent DAG run, the DAG's run schedule, which in this case, will be in the crontab format, the status of all previous DAG runs, date and time of the 
+last run, date and time of the next scheduled run, plus, a collection of quick links to drill down into more information related to the DAG. In the preceding column, 
+you can toggle to pause a DAG. Example_bash_operator DAG is running, but all other DAGs are currently paused. You can visualize DAGs in several ways. Start by 
+selecting the name of the DAG you want to visualize. Let's consider the DAG named simple-example. Notice that the button is on, indicating that the DAG is running in 
+the production environment. When you select the DAG name, the DAG's grid view opens. It shows a timeline of the status of your DAG and its tasks for each run. Here, 
+you can select the base date and the number of runs to display. Each status is color-coded according to the legend displayed here. You can also hover your mouse 
+pointer over any task in the timeline to view more information about it. Next, let's review the elements of a multi-operator DAG. Click "Graph" to display the graph 
+view. You can see the DAG's tasks and dependencies. In this example, execute_function depends on print_hello to be executed first. Each task is color-coded by its 
+operator type. In this example, print_hello is a bash operator, and execute_function is a Python operator. Here, you can filter your view by toggling the status 
+option buttons. The task instance context menu can be accessed from both grid and graph views by clicking on the task. This menu allows you, for example, to drill 
+down on a selected task instance to view and edit several details or to view the task's log file. By clicking on the Code button, you can also view the complete 
+Python source code that defines your DAG. Here, we see the building blocks of your DAG, such as the library imports and the individual task definitions, which invoke 
+bash operators in this case. By clicking on "Task duration", you can view a timeline chart of your DAG's task durations to see how they have been performing. Here, 
+you can toggle the tasks to highlight the last n runs. In this video, you learned that Apache Airflow has a rich UI that simplifies working with data pipelines, you 
+can visualize your DAG in several informative ways, including graph and grid mode, you can also review the Python code that originally defined your DAG, you can 
+analyze the duration of each task in your DAG over multiple runs, and finally, you can select context metadata for any task instance.
+
+Build a dag using Airflow
+
+[MUSIC] Welcome to Build a DAG Using Airflow. After watching this video, you will be able interpret an airflow pipeline as a Python script that defines an airflow 
+direct acyclic graph (DAG) object, list the key components of a DAG definition file, create tasks by instantiating operators in your DAG definition file, and set up 
+dependencies amongst tasks. An Apache Airflow DAG is a Python script which consists of the following logical blocks. Python library imports, DAG argument specification, 
+the DAG definition or instantiation, individual task definitions, which are the nodes of the DAG, and finally, the task pipeline, which specifies the dependencies between tasks. Let's implement a simple Apache Airflow pipeline by writing a DAG definition script. We will create a simple pipeline called simple_example_DAG.py that prints a greeting and then prints the current date and time. We will also schedule it to repeat the process every 5 seconds. Let's go through the list of logical blocks one by one. Begin by importing the Python libraries you will need for your DAG here. Start by importing the DAG class from the airflow models library. Then import the bash operator, which you will use to create the two print tasks, and the datetime, and timedelta modules from the datetime package, which you will need for specifying several time-related parameters. The next block is for specifying the default DAG arguments. Notice they are specified as a Python dict, which is just a collection of key-value pairs enclosed by curly braces. These are used to specify such things as the owner of the DAG, which is you, and its start date, in this case January 1, 2024, the number of times it should keep trying if it is failing. Here, only once if it does fail, and the retry_delay, or the time to wait between subsequent tries, which in this case is five minutes. The DAG definition block is used for instantiating your workflow as a DAG object. Here you can specify things like the name of your DAG, such as simple_example, a description for your workflow, for example, a simple example DAG, the default arguments to apply to your DAG, which in this case are specified by the default_args dict you already defined in the previous block, and finally scheduling instructions. In this case, the DAG will run repeatedly on a schedule of every 5 seconds once it is deployed. Next comes the task definition block. Here we define two tasks: task1 and task2, both of which are bash operators. Their respective ids are specified as print_hello and print_date. They each call a bash command, where the first task will echo "Greetings, the date and time are", and the second task will print the current date and time using the bash command date. Finally, each task is assigned to the DAG you instantiated in the DAG definition block above. The final block is where you specify the dependencies for your workflow, like this. Here, the double greater than notation specifies that task2 is downstream from task1. This means that task1, which we named print hello, will run first. Once print hello runs successfully, task2 or print date will run. This completes the creation of your Airflow DAG, and you now have a good idea of the general pattern. In this video, you learned that an Airflow pipeline is a Python script that instantiates an Airflow DAG object. Key components of a DAG definition file are library imports, DAG arguments, DAG and task definitions, and the task pipeline specification. You can specify a schedule in your Dag definition if you want it to run repeatedly by setting the schedule parameter. And finally, tasks are instantiated operators imported from the Apache airflow.operators module. [MUSIC]
+
+Airflow Logging and Monitoring. 
+After watching this video, you will be able use logging capabilities to monitor the task status and diagnose 
+problems with direct acylic graph, DAG runs. And explain accessing emitted metrics such as counters, gauges, and timers. The logging capability is required for 
+developers to monitor the status of tasks in DAG runs and to diagnose and debug issues. By default, Airflow logs are saved to local file systems as log files. 
+This makes it convenient for developers to quickly review the log files, especially in a development environment. For Airflow production deployments, the log files 
+can be sent to cloud storage such as IBM Cloud, AWS, or Azure for remote accessing. The log files can also be sent to search engines and dashboards for further 
+retrieval and analysis. Airflow recommends using Elasticsearch and Splunk, which are two popular document database and search engines to index, search, and analyze 
+log files. By default, log files are organized by dag_ids, run_ids, task_ids, and the attempt numbers. You will need to navigate to a specific log file for a task 
+execution using the path convention. For example, if you want to find the log for the first attempt of task1 in dummy_dag at a specific time. You will need to 
+navigate to logs/dag_id=dummy_dag/run_id=scheduled_ti- me/task_id=task1/attempt=1.log in the file editor. Note, the run_id value depends on how the DAG was executed. It can either be manual or scheduled, followed by the time of execution. In the log file, you can view information such as the running command, command result, task result, and so on. You can also quickly review the task events via UI provided by the Airflow web server. You can search events with fields like Dag id, Task id, and Logical Date, and quickly get an overview of the specific DAGs and tasks you are looking for. Airflow produces three different types of metrics for checking and monitoring component's health, these are counters, gauges, and timers. Counters are metrics that will always be increasing, such as the total counts of successful or failed tasks. Gauges are metrics that may fluctuate, for example, the number of currently running tasks or DAG bag sizes. Timers are metrics related to time duration, for instance, the time to finish a task, or the time for a task to reach success or failed state. Similar to logs, the metrics produced in Airflow production deployments should be sent and analyzed by dedicated repositories and tools. Airflow recommends using StatsD, which is a network daemon that can gather metrics from Airflow and send them to a dedicated metrics monitoring system. For metrics monitoring and analysis, Airflow recommends using Prometheus, which is a popular metrics monitoring and analysis system. Prometheus can also aggregate and visualize metrics in a dashboard for a more interactive visual style. In this video, you learned that you can save Airflow logs into local file systems and send them to cloud storage, search engines, and log analyzers. Airflow recommends sending production deployment logs to be analyzed by Elasticsearch or Splunk. With Airflow's UI, you can view DAGs and task events easily. You also learned that the three types of Airflow metrics are counters, gauges, and timers. Airflow recommends that you send production deployment metrics for analysis by Prometheus via StatsD. [MUSIC]
+
+
+Define what an event is.
+Identify the main components of an ESP.
+Explain how Apache Kafka functions as an Event Streaming Platform (ESP).
+List popular Kafka-based ESP-as-a-Service providers.
+Discuss the core components of Kafka.
+Describe an end-to-end event streaming pipeline example.
+Explain what the Kafka Streams API is and list its main benefits.
+Describe the Kafka Stream processing topology.
+Perform basic Kafka tasks for working with streaming data.
+Utilize the kafka-python client to execute common operations with a Kafka server.
+
+Distributed Event Streaming Platform Components. 
+After watching this video, you will be able to describe what an event is, list the common event formats, describe what an event streaming platform (ESP) is, list the 
+main components of an ESP, and list the popular ESPs. An event normally means something worth noticing is happening. In the context of event streaming, an event is a 
+type of data which describes the entity's observable state updates over time. For example, the GPS coordinates of a moving car, the temperature of a room, blood 
+pressure measurements of a patient, or a RAM usage of a running application. An event as a special type for data has different formats. Let's have a look at the three
+most common formats. It can be as a primitive type such as a plain text, number, or date, or an event may be in key-value format, and its value can be a primitive 
+data type, or complex data type like list, tuple, JSON, XML, or even bytes. For example, the GPS coordinates of a car with car_id_1 as a tuple. Also, very often, an 
+event can be associated with a timestamp to make it time-sensitive. For example, the blood pressure of a patient with ID pt001 as a tuple. Next, we will have a closer
+ look at event streaming. Suppose we have one event source such as a group of sensors, a monitoring device, a database, or a running application. This event source 
+ may continuously generate a large event volume at a short time interval or nearly real time. Those real-time events need to be properly transported to an event 
+ destination, such as a file system, another external database, or an application. The continuous event transportation between an event source and an event destination 
+ is called event streaming. After all you have learned about ETL so far, you may think that to implement such an ETL process between one event source to one event 
+ destination should be straightforward. However, what if we have multiple different event sources and destinations? In a real-world scenario, event streaming can be 
+ really complicated with multiple distributed event sources and destinations, as data transfer pipelines may be based on different communication protocols, such as FTP, file transfer protocol, HTTP, Hypertext Transfer Protocol, JDBC, Java database connectivity, SCP, secure copy, and so on. An event destination can also be an event source simultaneously. For example, one application could receive an event stream and process it, then transport the processed results as an event stream to another destination. To overcome such a challenge of handling different event sources and destinations, we will need to employ the event streaming platform. An ESP acts as a middle layer among various event sources and destinations and provides a unified interface for handling event-based ETL. As such, all event sources only need to send events to an ESP instead of sending them to the individual event destination. On the other side, event destinations only need to subscribe to an ESP and just consume the event sent from the ESP instead of the individual event source. Different ESPs may have different architectures and components. Here we show you some common components included in most ESP systems. The first and foremost component is the event broker, which is designed to receive and consume events. Since it is the core component of an ESP, we will explain it in more detail in the next slide. The second common component of an ESP is event storage, which is used for storing events being received from event sources. Accordingly, event destinations do not need to synchronize with event sources, and stored events can be retrieved at will. The third common component is the analytic and query engine, which is used for querying and analyzing the stored events. Let's have a look at the event broker, which is the core component of an ESP. It normally contains three subcomponents, ingester, processor, and consumption. The ingester is designed to efficiently receive events from various event sources. The processor performs operations on data such as serializing and deserializing, compressing and decompressing, encryption and decryption, and so on. The consumption component retrieves events from event storage and efficiently distributes them to subscribed event destinations. There are many ESP solutions, including Apache Kafka, Amazon Kinesis, Apache Flink, IBM Event Stream, Azure Event Hub, and so on. Each has its unique features and application scenarios. Among these ESPs, Apache Kafka is probably the most popular one. In this video, you'll learn that an event describes the entity's observable state updates over time. Common event formats include primitive data types, key-value, and key-value with a timestamp. An ESP is needed, especially when there are multiple event sources and destinations. The main components of an ESP are event broker, event storage, analytic, and query engine. Apache Kafka is the most popular open-source ESP, and finally, other popular ESPs include Amazon Kinesis, Apache Flink, IBM Event Stream, Azure Event Hub. [MUSIC]
+
+Welcome to Apache Kafka Overview. After watching this video you will be able to, identify Apache Kafka as an event streaming platform (ESP). describe the architecture
+of Apache Kafka, list common use cases for Apache Kafka, summarize the main features and benefits of Apache Kafka, and list popular Kafka based ESP as a service 
+providers. Implementing an ESP and its components from scratch can be extremely difficult, but there are several open source and commercial ESP solutions with 
+built-in capabilities available in the market. Apache Kafka is an open source project which has become the most popular ESP. Kafka is a comprehensive platform and 
+can be used in many application scenarios. Kafka was originally used to track user activities such as keyboard strokes, mouse clicks, page views, searches, gestures, 
+screen time, and so on. But now Kafka is also suitable for all kinds of metric streaming such as sensor readings, GPS, and hardware and software monitoring. For 
+enterprise applications and infrastructure with a huge number of logs, Kafka can be used to collect and integrate them into a centralized repository. For banks, 
+insurance, or fintech companies, Kafka is widely used for payments and transactions. These scenarios are just the tip of the iceberg. Essentially, you can use Kafka 
+when you want high throughput and reliable data transportation services among various event sources and destinations. All events will be ingested in Kafka and become 
+available for subscriptions and consumption, including further data storage and movement to other online or offline databases and backups. Real time processing and 
+analytics including dashboard, machine learning, AI algorithms, and so on, generating notifications such as email, text messages, and instant messages, or data 
+governance and auditing to make sure sensitive data such as bank transactions are complying with regulations. Kafka is a distributed, real time event streaming 
+platform that adheres to client server architecture. Kafka runs as a cluster of broker servers, acting as the event broker to receive events from the producers, store the streams of records, and distribute events. It also has servers that run Kafka Connect to import and export data as event streams. Please note that all the brokers before version 2.8 relied on another distributed system called Zookeeper for management and to ensure all brokers work in an efficient and collaborative way. However, Kafka Raft, pronounced as KRaft, is now used to eliminate Kafka's reliance on Zookeeper for metadata management. It is a consensus protocol that streamlines Kafka's architecture by consolidating metadata responsibilities within Kafka itself. Using Kafka controllers, producers send or publish data to the topic, and the consumers subscribe to the topic to receive data. Kafka uses a transmission control protocol, TCP based network communication protocol, to exchange data between clients and servers. For the client side, Kafka provides different types of clients such as Kafka command line interface, CLI. A collection of shell scripts to communicate with the Kafka server, several high level programming APIs such as Java, Scala, Python, Go, C, and C++, rest APIs, and some specific third party clients made by the Kafka community. You can select different clients based on your requirements. Now that you have a basic understanding of Kafka, let's review the Kafka features. Kafka is a distribution system, which makes it highly scalable to handle high data throughput and concurrency. A Kafka cluster normally has multiple event brokers which can handle event streaming in parallel. Kafka is very fast and highly scalable. Kafka also divides event storage into multiple partitions and replications, which makes it fault-tolerant and highly reliable. Kafka stores the events permanently. As such, event consumption can be done whenever suitable for consumers without a deadline, and Kafka is open source, meaning that you can use it for free and even customize it based on your specific requirements. Even though Kafka is open source and well documented, it is still challenging to configure and deploy Kafka without professional assistance. Deploying a Kafka cluster requires extensive efforts for tuning infrastructure and consistently adjusting the configurations, especially for enterprise-level deployments. Fortunately, several commercial service providers offer an on-demand ESP as a service to meet your streaming requirements. Many of them are built on top of Kafka and provide added value for customers. Some well known ESP providers include Confluent Cloud, which provides customers with fully managed Kafka services either on premises or on cloud. IBM event streams, which is also based on Kafka and provides many add-on services such as enterprise-grade security, disaster recovery, and 24/7 cluster monitoring. Amazon managed streaming for Apache Kafka, which is also a fully managed service to facilitate the build and deployment of Kafka. In this video, you learned that Apache Kafka is a popular open source ESP. Common Kafka use cases include user activity, tracking metrics, and log integrations, and financial transaction processing. Apache Kafka is a highly scalable and reliable platform that stores events permanently. And finally, popular Kafka-based ESP service providers include Confluent Cloud, IBM Event Streams, and Amazon Manage Streaming. [MUSIC]
+
+Building Event Streaming Pipelines Using Kafka. 
+After watching this video, you will be able describe the core components of Kafka. Use Kafka to publish (write) and subscribe to (read) streams of events. Use 
+Kafka to consume events, either as they occur or retrospectively, and describe an end-to-end event streaming pipeline example. A Kafka cluster contains one or 
+many brokers. You may think of a Kafka broker as a dedicated server to receive, store, process, and distribute events. Brokers are synchronized and use KRaft 
+controller nodes that use the consensus protocol to manage the Kafka metadata log that contains information about each change to the cluster metadata. Let's look at 
+an example of how the data is organized as topics in the brokers. A log_topic and a transaction topic in broker 0, a payment_topic and a gps_topic in broker 1, and 
+a user_click_topic and user_search_topic in broker 2. Each broker contains one or many topics. You can think of a topic as a database to store specific types of 
+events such as logs, transactions, and metrics. Brokers manage to save published events into topics and distribute the events to subscribed consumers. Like many 
+other distribution systems, Kafka implements the concepts of partitioning and replicating. It uses topic partitions and replications to increase fault tolerance and 
+throughput so that event publication and consumption can be done in parallel with multiple brokers. In addition, even if some brokers are down, kafka clients are 
+still able to work with the target topics replicated in other working brokers. For example, a log_topic has been separated into two partitions (0,1) and a user topic 
+has been separated into two partitions (0,1) and each topic partitioned is duplicated into two replications and stored in different brokers. The Kafka CLI, or 
+command-line interface client, provides a collection of powerful script files for users to build an event streaming pipeline. The Kafka topics script is the one you will be using often to manage topics in a Kafka cluster. It is straightforward. Let's have a look at some common usages. The first one is to create a topic. Here we are trying to create a topic called log_topic with two partitions and two replications. One important note here is that many Kafka commands like kafka-topics require users to refer to a running Kafka cluster with a host and a port, such as a local host with port 9092. After you have created some topics, you can check all created topics in the cluster using the list option. And if you want to check more details of a topic such as partitions and replications. You can use the describe option and you can delete a topic using the delete option. Next you will find out more about publishing events using Kafka producers. Features of a Kafka producer: they are client applications that publish events to topic partitions according to the same order as they are published. When publishing an event in a Kafka producer, an event can be optionally associated with a key. Events associated with the same key will be published to the same topic partition. Events not associated with any key will be published to topic partitions in rotation. Let's see how you can publish events to topic partitions using the following example. Suppose you have an Event Source 1 which generates various log entries and an Event Source 2 which generates user activity tracking records. Then you can create a Kafka producer to publish log records to log topic partitions and a user producer to publish user activity events to user topic partitions, respectively. When you publish events in producers, you can choose to associate events with a key, for example, an application name or a user ID. Similar to the Kafka topic CLI, Kafka provides the Kafka producer CLI for users to manage producers. The most important aspect is starting a producer to write or publish events to a topic. Here you start a producer and point it to the log_topic. Then you can type some messages in the console to start publishing events. For example, log1, log2, and log3. You can provide keys to events to make sure the events with the same key will go to the same partition. Here you are starting a producer to user_topic with the parse.key option to be true and you also specify the key.separator to be comma. Then you can write messages as follows, key, user1, value login website, key, user1, value, click the top item and key, user1, value, logout website. Accordingly, all events about user one will be saved in the same partition to facilitate the reading for consumers. Once events are published and properly stored in topic partitions, you can create consumers to read them. Consumers are client applications that can subscribe to topics and read the stored events. Then event destinations can further read events from Kafka consumers. Consumers read data from topic partitions in the same order as they are published. Consumers also store an offset for each topic partition as the last read position. With the offset, consumers are guaranteed to read events as they occur. A playback is also possible by resetting the offset to zero. This way, the consumer can read all events in the topic partition from the beginning. In Kafka, producers and consumers are fully decoupled. As such, producers don't need to synchronize with consumers, and after events are stored in topics, consumers can have independent schedules to consume them. To read published log and user events from topic partitions, you will need to create log and user consumers and make them subscribe to corresponding topics. Then Kafka will push the events to those subscribed consumers. Then the consumers will further send to event destinations. To start a consumer is also easy using the Kafka consumer script. Let's read events from the log_topic. You just need to run the Kafka console consumer script and specify a Kafka cluster and the topic to subscribe to. Here you can subscribe to and read events from the topic log_topic. Then the started consumer will read only the new events starting from the last partition offset. After those events are consumed, the partition offset for the consumer will also be updated and committed back to Kafka. Very often a user wants to read all events from the beginning as a playback of all historical events. To do so, you just need to add the from-beginning option. Now you can read all events starting from offset 0. Let's have a look at a more concrete example to help you understand how to build an event streaming pipeline end to end. Suppose you want to collect and analyze weather and Twitter event streams so that you can correlate how people talk about extreme weather on Twitter. Here you can use two event sources: IBM weather API to obtain real time and forecasted weather data in JSON format. Twitter API to obtain real-time tweets and mentions also in JSON format. To receive weather and Twitter JSON data in Kafka, you then create a weather topic and a Twitter topic in a Kafka cluster with some partitions and replications. To publish weather and Twitter JSON data to the two topics, you need to create a weather producer and a Twitter producer. The event's JSON data will be serialized into bytes and saved in Kafka topics. To read events from the two topics, you need to create a weather consumer and a Twitter consumer. The bytes stored in Kafka topics will be deserialized into event JSON data. If you now want to transport the weather and Twitter event JSON data from the consumers to a relational database, you will use a DB writer to parse those JSON files and create database records, and then you can write those records into a database using SQL insert statements. Finally, you can query the database records from the relational database and visualize and analyze them in a dashboard to complete the end-to-end pipeline.
+
+Welcome to Kafka Streaming Process. After watching this video, you will be able to describe what the Kafka Streams API is and its main benefits, as well as describe 
+what the Kafka Stream processing topology is. In event streaming, in addition to transporting data, data engineers also need to process data through. For example, 
+data filtering, aggregation, and enhancement. Any applications developed to process streams are called stream processing applications. For stream processing 
+applications based on Kafka, a straightforward way is to implement an ad hoc data processor to read events from one topic, process them, and publish them to another 
+topic. Let's look at an example. You first request raw weather JSON data from a weather API, and you start a weather producer to publish the raw data into a 
+raw_weather_topic. Then you start a consumer to read the raw weather data from the weather topic. Next, you create an ad hoc data processor to filter the raw weather 
+data to only include extreme weather events, such as very high temperatures. Such a processor could be a simple script file or an application which works with 
+Kafka clients to read and write data from Kafka. Afterwards, the processor sends the processed data to another producer and it gets published to a 
+processed_weather_topic. Finally, the processed weather data will be consumed by a dedicated consumer and sent to a dashboard for visualization. Such ad hoc 
+processors may become complicated if you have many different topics to be processed. A solution that may solve these challenges is Kafka. It provides the Streams 
+API to facilitate stream processing. Kafka Streams API is a simple client library aiming to facilitate data processing in event streaming pipelines. It processes 
+and analyzes data stored in Kafka topics. Thus, both the input and output of the Streams API are Kafka topics. Additionally, Kafka Streams API ensures that each 
+record will only be processed once. Finally, it processes only one record at a time. Kafka Streams API is based on a computational graph called a stream processing 
+topology. In this topology, each node is a stream processor, which receives streams from its upstream processor; performs data transformations, such as mapping, filtering, formatting, and aggregation; and produces output streams to its downstream stream processors. Thus, the edges of the graph are the I/O streams. There are two special types of processors. On the left, you can see the source processor which has no upstream processors. A source processor acts like a consumer, which consumes streams from Kafka topics and forwards the process streams to its downstream processors. On the right, you can see the sink processor, which has no downstream processors. A sink processor acts like a producer which publishes the received stream to a Kafka topic. Let's redesign the previous weather stream processing application with Kafka Streams API. Suppose you have a raw_weather_topic and a processed_weather_topic in Kafka. Now, instead of spending a huge amount of effort developing an ad hoc processor, you could just plug in the Kafka Streams API here. In the Kafka Streams topology, we have three stream processors, the source processor that consumes raw weather streams from the raw_weather_topic and forwards the weather stream to the stream processor to filter the stream based on high temperature. Then the filtered stream will be forwarded to the sink processor, which then publishes the output to the processed_weather_topic. Concluding, this is a much simpler design than an ad hoc data processor, especially if you have many different topics to be processed. In this video, you learned that the Kafka Streams API is a simple client library to help data engineers with data processing in event streaming pipelines. A stream processor receives, transforms, and forwards the streams. Kafka Streams API is based on a computational graph called a stream processing topology and, in the topology, each node is a stream processor while edges are the I/O streams. Finally, in this topology, we find two special types of processors : The source processor and the sink processor.
+
+
+UNGRADED PLUGIN PYTHON KAFKA CLIENT
+
+Describe the attributes and benefits of Apache Spark and distributed computing.
+Explain the terms functional programming and Lambda functions.
+Define Resilient Distributed Datasets (RDDs), parallel programming, resilience in Apache Spark and relate RDDs and parallel programming with Apache Spark.
+Describe Apache Spark components and how Apache Spark scales with Big Data.
+Define the functions, parts, and benefits of Spark SQL and DataFrame queries, and explain how DataFrames work with Spark SQL.
+Create RDDs and apply transformations and actions to them.
+Filter and aggregate data by using DataFrames and Spark SQL.
+Welcome to “Why Use Apache Spark.” After watching this video, you will be able to: Describe Apache Spark attributes, describe distributed computing, list the benefits of Apache Spark and distributed computing, compare and contrast Apache Spark to MapReduce. Spark is an open-source, in-memory application framework for distributed data processing and iterative analysis on massive data volumes. Let’s review the keywords in this sentence: First, Spark is entirely open source. Spark is available under the Apache Foundation hence the name Apache Spark. Next, Spark is “in-memory,” which means that all operations happen within the memory or RAM. Distributed data processing uses Spark. Finally, Spark scales very well with data, which is ideal for massive datasets. Spark is primarily written in Scala, a general-purpose programming language that supports both object-oriented and functional programming. Spark runs on Java virtual machines.
+Play video starting at :1:24 and follow transcript1:24
+Distributed computing, as the name suggests, is a group of computers or processors working together behind the scenes.
+Play video starting at :1:33 and follow transcript1:33
+People often use the terms Distributed computing and Parallel Computing interchangeably, as the two computing types have many similarities.
+Play video starting at :1:43 and follow transcript1:43
+However, distributed computing and parallel computing access memory differently. Typically, parallel computing shares all the memory, while in distributed computing, each processor accesses its own memory.
+Play video starting at :1:58 and follow transcript1:58
+Let’s look at two top distributed computing benefits: First, distributed computing offers scalability and modular growth. Distributed systems are inherently scalable as they work across multiple machines and scale horizontally. A user can add additional machines to handle the increasing workload instead of repeatedly updating a single system, with virtually no cap for scalability.
+Play video starting at :2:26 and follow transcript2:26
+Second, distributed systems require both fault tolerance and redundancy as they use independent nodes that could fail. Distributed computing offers more than fault tolerance. Distributed computing provides redundancy that enables business continuity. For example, a business running a cluster of eight machines can continue to function whether a single machine or multiple machines go offline.
+Play video starting at :2:53 and follow transcript2:53
+Spark checks the boxes for all the benefits of distributed computing. Spark supports a computing framework for large-scale data processing and analysis. Spark also provides parallel distributed data processing capabilities, scalability, and fault-tolerance on commodity hardware.
+Play video starting at :3:13 and follow transcript3:13
+Spark provides in-memory processing and creates a comprehensive, unified framework to manage big data processing. Spark enables programming flexibility with easy-to-use Python, Scala, and Java APIs.
+Play video starting at :3:29 and follow transcript3:29
+How does Apache Spark compare to more traditional big data tools like MapReduce? A traditional MapReduce job creates iterations that require reads and writes to disk or HDFS. These reads and writes are usually time-consuming and expensive.
+Play video starting at :3:49 and follow transcript3:49
+Apache Spark solves the read/write problems encountered with MapReduce by keeping much of the data required in-memory and avoiding expensive disk I/O, thus reducing the overall time by orders of magnitude.
+Play video starting at :4:4 and follow transcript4:04
+Spark provides big data solutions for both data engineering problems and data science challenges. Data engineers use Spark tools, including the core Spark engine, clusters and executors and their management, SparkSQL and DataFrames. Additionally, Spark also supports Data Science and Machine learning through libraries such as SparkML and Streaming.
+Play video starting at :4:31 and follow transcript4:31
+In this video, you learned that: Spark is an open-source in-memory application framework for distributed data processing and iterative analysis on massive data 
+volumes. Distributed computing is a group of computers or processors working together behind the scenes. Both distributed systems and Apache Spark are inherently 
+scalable and fault-tolerant. Apache Spark keeps a large portion of the data required in-memory and avoids expensive and time-consuming disk I/O.
+Welcome to "Functional Programming Basics!" After watching this video, you will be able to: Explain the term functional programming, explain Lambda functions, 
+relate functional programming with Apache Spark. So, what is Functional Programming? Functional Programming, or FP, is a style of programming that follows the 
+mathematical function format. Think of an algebra class with the f of x notation. The notation is declarative in nature as opposed to being imperative. By 
+declarative, we mean that the emphasis of the code or program is on the “what” of the solution as opposed to the “how to” of the solution. Declarative syntax 
+abstracts out the implementation details and only emphasizes on the final output, restated, “the what.” We use expressions in functional programming, like the 
+expression f of x as mentioned earlier. Historically, LISt Processing Language, known as LISP, was the first functional programming language, starting in the 1950s. 
+But today there are many functional programming language options including Scala, Python, R, and Java. Scala is the most recent representative in this family of 
+programming languages. Apache Spark is written mainly in Scala, which treats functions as first-class citizens. Functions in Scala can be passed as arguments to 
+other functions, returned by other functions, and used as variables. Here is a simple example of a functional program that increments a number by one. We define the 
+function f of x equal to x +1. We can then apply this function to a list of size four as shown in the figure, and the program increments every element in the list by 
+one. That's the advantage of using functional programming. You can directly apply functions to an entire list or array! If you perform the same task in an imperative 
+paradigm using procedural code, you would construct a “for-loop” that iterates over the array and increment each element by 1. This programming paradigm differs from 
+the preceding example by explicitly listing all the steps to be performed, including the “go over” for each element, incrementing each element by one. This code 
+places emphasis on the “how-to.” Compare and contrast this traditional programming example to the functional programming example that emphasized on the “what” part 
+of the solution. Parallelization is one of the main benefits of Functional Programming. Consider the previous example where the program incremented by one up to 4. 
+Here is a larger array, from one to nine. You can split the task into three different computing chunks, which can be referred to as nodes, click one, and run those 
+three tasks or nodes in parallel. This method's beauty is that you do not need to change any of the function definitions or the code. All you need to do is to run 
+more than one instance of the task in parallel. By applying implicit parallelization functional programming capabilities, you can scale the algorithm to any size by 
+adding more compute and resources without modifying the program or code. The result is the same as if the function exists on only a single node. However, in this 
+case, the function ran three times in parallel without requiring any changes to the function or code. Functional programming applies a mathematical concept called 
+lambda calculus. To keep the explanation simple, lambda calculus basically says that every computation can be expressed as an anonymous function which is applied to 
+a data set. Lambda functions or operators are anonymous functions used to write functional programming code. Here, we have the code written in functional programming 
+style using lambda functions and operators to add two numbers using two popular languages, Scala as seen on the left, and Python, as seen on the right. Note how both 
+codes are similar in flow, and abstract out the result directly, a hallmark of the declarative paradigm of programming. Apache Spark is capable of quickly working 
+through big data, by lambda functions distributing work between worker nodes and parallelized computations. All Spark programs implemented this way are inherently 
+parallel, so it doesn't matter if you analyze one kilobyte or one petabyte of data. Just add additional resources to the Spark cluster and you're done. 
+In this video, you learned that: Functional programming follows a declarative programming model that emphasizes “What” instead of “how to” and uses expressions. 
+Lambda functions or operators are anonymous functions that enable functional programming. Spark parallelizes computations using the lambda calculus. All functional 
+Spark programs are inherently parallel.
+
+parallel programming using resilient distributed datasets. 
+After watching this video, you'll be able to define resilient, distributed datasets referred to as RDDs; define parallel programming; explain resilience in Apache Spark; relate RDD and parallel programming with Apache Spark. A resilient distributed data set, 
+also known as an RDD, is Spark's primary data abstraction. A resilient distributed data set, is a collection of fault tolerant elements partitioned across the 
+cluster's nodes capable of receiving parallel operations. Additionally, resilient distributed databases are immutable, meaning that these databases cannot be changed once created. Every spark application consists of a driver program that runs the user's main functions and runs multiple parallel operations on a cluster.
+
+RDD's support text, sequence files, Avro, Parquet and Hadoop input format file types. RDD's also support local, Cassandra, H Base, HDFS, Amazon S3, and other file formats in addition to an abundance of relational and no SQL databases.
+
+First, you can create an RDD using an external or local file from a Hadoop supported file system such as HDFS, Cassandra, H Base or Amazon S3. A second method is to apply the parallelize function to an existing collection in the driver program. Note that this driver program can be in any of the supported high level APIs, including Python, Java, and Scala. This simple code snippet shown on screen using both Scala and Python creates an RDD from an existing collection. In this case, we use a list. You'll see SC applied to the snippet. One important parameter for parallel collections is the number of partitions specified to cut the dataset. Spark runs one task for each partition of the cluster. Typically you want two to four partitions for each CPU in your cluster. Spark tries to automatically set the number of partitions based on your cluster. However, you can also set partitions manually by passing the number as a second parameter to the parallelize function.
+
+A third method of creating an RDD in Spark is to apply a transformation on an existing RDD to create a new RDD.
+
+Next, let's define parallel programming. Parallel programming, like distributed programming, is the simultaneous use of multiple compute resources to solve a computational task. Parallel programming parses tasks into discrete parts that are solved concurrently using multiple processors. The processors access a shared pool of memory, which has in place control and coordination mechanisms.
+
+Here is an example of how RDDs enabled parallel programming. This example is similar to creating an RDD in Spark. You create an RDD by parallelizing an array of objects or by splitting a dataset into partitions. Nodes receive the distributed partitions. Spark runs one task for each partition of the cluster. Based on how RDDs are created, RDDs can inherently be operated on in parallel.
+
+So how do RDDs provide resilience in Spark. RDD's provide resilience in Spark through immutability and caching. First RDDs are always recoverable as the data is immutable. Another essential Spark capability is the persisting or caching of a data set in memory across operations. The cache is fault tolerant and always recoverable. as RDDs are immutable and the Hadoop data sources are also fault tolerant. When you persist in RDD, each node stores the partitions that the node computed in memory and reuses the same partition in other actions on that data set or the subsequent datasets derived from the first RDD. Persistence allows future actions to be much faster, often by more than 10 times. Persisting or caching is used as a key tool for iterative algorithms and fast interactive use.
+
+In this video, you learned that you can create RDD using an external or local file from a Hadoop supported file, a collection or another RDD. RDDs are immutable and always recoverable. Parallel programming is the simultaneous use of multiple compute resources to solve a computational task. RDDs can persist or cache datasets in memory across operations, which spades iterative operations.
+
+Welcome to “Scale out and Data Parallelism in Apache Spark” After watching this video, you will be able to: Describe Apache Spark components. Describe how Apache 
+Spark scales with big data. Apache Spark architecture consists of three main components. The first component is data storage. Datasets load from data storage into 
+memory. Any Hadoop compatible data source is acceptable. High-level programming APIs comprise the second component. Spark has APIs in Scala, Python, and Java. The 
+final component is the cluster management framework, which handles the distributed computing aspects of Spark. Spark’s cluster management framework can exist as a 
+stand-alone server, Mesos or Yet Another Resource Network, or YARN. A cluster management framework is essential for scaling big data. Here is a simple visualization 
+of the three pieces. The data from a Hadoop file system flows into the compute interface or API, which then flows into different nodes to perform distributed/parallel
+ tasks. What is often referred to as “Spark” is the base engine formally called the “Spark Core.” The fault-tolerant Spark Core is the base engine for large-scale 
+ parallel and distributed data processing. Spark Core manages memory and task scheduling. Spark Core also contains the APIs used to define RDDs and other datatypes. 
+ Spark Core also parallelizes a distributed collection of elements across the cluster.
+
+To understand how Spark scales with big data, let’s review the Spark Application Architecture. The Spark Application consists of the driver program and the executor 
+program. Executor programs run on worker nodes. Spark can start additional executor processes on a worker if there is enough memory and cores available. Similarly, 
+executors can also take multiple cores for multithreaded calculations. Spark distributes RDDs among executors. Communication occurs among the driver and the executors
+The driver contains the Spark jobs that the application needs to run and splits the jobs into tasks submitted to the executors. The driver receives the task results 
+when the executors complete the tasks. If Apache Spark were a large organization or company, the driver code would be the executive management of that company that 
+makes decisions about allocating work, obtaining capital, and more. The junior employees are the executors who do the jobs assigned to them with the resources 
+provided. The worker nodes correspond to the physical office space that the employees occupy.
+
+You can add additional worker nodes to scale big data processing incrementally. In this video, you learned that: Apache Spark architecture consists of three main 
+pieces components data, compute input, and management. The fault-tolerant Spark Core base engine performs large-scale parallel and distributed data processing, 
+manages memory, schedules tasks, and houses APIs that define RDDs.
+
+The Spark driver program communicates with the cluster and then distributes RDDs among worker nodes.
+
+
+Welcome to “SparkSQL and DataFrames!”
+
+After watching this video, you will be able to: Define SparkSQL, define the parts of a Spark SQL query, and explain the benefits of using SparkSQL. Describe what DataFrames are, define the parts of a DataFrame query, and explain the benefits of using a DataFrame. Explain how DataFrames work with Spark SQL.
+
+Spark SQL is a Spark module for structured data processing. You can interact with Spark SQL using SQL queries and the DataFrame API. Spark SQL supports Java, Scala, Python, and R APIs. Spark SQL uses the same execution engine to compute the result independently of which API or language you are using for the computation. Developers can use the API that provides the most natural way to express a given transformation.
+
+Here is an example of a Spark SQL query using Python. The query select star from people statement is the SQL query run using Spark SQL. The entity “people” was registered as a table view before this command.
+
+Unlike the basic Spark RDD API, Spark SQL includes a cost-based optimizer, columnar storage, and code generation to perform optimizations that provide Spark with additional information about the structure of both the data and the computation in process.So, what is a DataFrame? A DataFrame is a collection of data organized into named columns. DataFrames are conceptually equivalent to a table in a relational database and similar to a data frame in R/Python, but with richer optimizations. DataFrames are built on top of the Spark SQL RDD API. DataFrames use RDDs to perform relational queries.
+
+Here is a simple code snippet in Python to read from a JSON file and create a simple DataFrame. The last step of registering the DataFrame runs SQL queries on this data using Spark SQL.
+
+Here you see the input data file in JSON format and the resulting DataFrame. DataFrames offer many benefits: DataFrames are highly scalable—from a few kilobytes on a single laptop to petabytes on a large cluster of machines. DataFrames support a wide array of data formats and storage systems. DataFrames provide optimization and code generation through a Catalyst optimizer. Last, DataFrames are developer-friendly, offering integration with most big data tooling via Spark and APIs for Python, Java, Scala, and R. These code snippets show how to run the same SQL query and the result of those queries using Spark SQL. All three queries show here achieve the same result of showing the names column from our DataFrame. The first query is a more traditional SQL query, while the other two code examples use the DataFrame Python API to perform the same task.
+
+Similarly, here are two different ways to query the entries in the DataFrame to locate people who are above the age of 21. The first code example is a SQL query, while the second code example uses the DataFrame API. In this video, you learned that: SparkSQL is a Spark module for structured data processing. Spark SQL provides a programming abstraction called DataFrames and can also act as a distributed SQL query engine. DataFrames are conceptually equivalent to a table in a relational database or a data frame in R/Python, but with richer optimizations.
+
+Describe Resilient Distributed Datasets (RDDs) and their uses in Apache Spark.
+Describe data set features, benefits, and creation in Apache Spark and contrast datasets with DataFrames.
+Describe how Catalyst and Tungsten benefit Spark SQL and how Spark performs SQL and memory optimization using Catalyst and Tungsten.
+Identify basic DataFrame operations and apply them, using Spark DataFrames, on real-world data.
+Load, view, manipulate, and aggregate data in a DataFrame.
+Define Spark SQL and identify supported data sources.
+Create a DataFrame table view and aggregate data in the table view.
+Create a Pandas user-defined function (UDF) to perform columnar operations.
+
+Resilient Distributed Datasets in Parallel Programming and Spark." After watching this video, you will be able to: Describe Resilient Distributed Datasets, explain 
+how to use Resilient Distributed Datasets in Spark, explain RDD transformation and actions, and list fundamental transformations and actions. Resilient Distributed 
+Datasets, known as RDDs, are Spark's primary data abstraction and are partitioned across a cluster's nodes. The first RDD operation to explore is a Transformation. 
+An RDD transformation creates a new RDD from an existing RDD. Transformations in Spark are considered lazy because Spark does not compute transformation results 
+immediately. Instead, the results are only computed when evaluated by "actions." For example, the map transformation passes each element of a dataset through a function resulting in a new RDD. To evaluate a transformation in Spark, you use an action. The action returns a value to the driver program after running a computation. One example is the reduce action, which aggregates all the elements of an RDD and returns the result to the driver program. But how do transformations and actions happen? Spark uses a unique data structure called a Directed Acyclic Graph, knowns as a DAG, and an associated DAG Scheduler to perform RDD operations. Think of a DAG as a graphical structure composed of edges and vertices. The term "acyclic" means that new edges only originate from an existing vertex. In general, the vertices and edges are sequential. The vertices represent RDDs, and the edges represent the transformations or actions. The DAG Scheduler applies the graphical structure to run the tasks that use the RDD to perform transformation processes. So, why does Spark use DAGs? DAGS help enable fault tolerance. When a node goes down, Spark replicates the DAG and restores the node. Let's look at the process in more detail. First, Spark creates DAG when creating an RDD. Next, Spark enables the DAG Schedular to perform a transformation and updates the DAG. The DAG now points to the new RDD. The pointer that transforms RDD is returned to the Spark driver program. And, if there is an action, the driver program that calls the action evaluates the DAG only after Spark completes the action. Here are some examples of RDD transformations and actions. We have already mentioned, map, which is an essential operation and capable of expressing all transformations needed in data science. Some of the more common high-level transformations making use of map and reduce include: filter, which enables filtering the elements of a dataset based on a function, and distinct, which finds the number of distinct elements in a dataset. In addition, the flatmap transformation, which is similar to the map transformation, can map each input item to zero or greater output items. Its function should return a sequence rather than a single item. Next, frequently used actions include: reduce, which aggregates dataset elements using the function func. take, which returns an array with the first n element, collect, which returns all the elements of the dataset as an array and takeOrdered, which returns elements ordered in ascending order or as specified by an optional function argument. You can find more details about transformations and actions, on the Spark.Apache.org website. A transformation is only a mapping of operations. You need actions to get the computed values to the driver program: This example considers a function f of x that decrements x by 1. So, f of x equals x minus 1. You'll apply this function as a transformation to a dataset using the map transformation. Each task makes a new partition by calling f of e on each entry e in the original partition. Then, the collect action gathers the entries from all the partitions into the driver, which receives the results. In this video, you learned that: RDDs are Spark's primary data abstraction partitioned across the nodes of the cluster. Spark uses DAGS to enable fault tolerance. When a node goes down, Spark replicates the DAG and restores the node. Transformations leave existing RDDs intact and create new RDDs based on the transformation function. Transformations undergo lazy evaluation, meaning they are only evaluated when the driver function calls an action.
+
+Welcome to “Datasets and DataFrames in Spark.” After watching this video, you will be able to: Describe dataset features and benefits within Apache Spark, explain 
+three ways you can create datasets for use in Spark, summarize the differences between datasets and Data-frames. Datasets are the newest Spark data abstraction. 
+Like RDDs and DataFrames, datasets provide an API to access a distributed data collection. Datasets are a collection of strongly typed Java Virtual Machine, or 
+JVM, objects. Strongly typed means that datasets are typesafe, and the dataset’s datatype is made explicit during its creation. Datasets provide the benefits of 
+both RDDs, such as lambda functions, type-safety, and SQL Optimizations from SparkSQL. Speaking of benefits, here are four more features of datasets: Datasets are 
+immutable. Like RDDs, they cannot be deleted or lost. Datasets feature an encoder that converts type-specified JVM objects to a tabular representation. Datasets 
+extend the DataFrame API. Conceptually a dataset of a generic untyped “Row” is a JVM object seen as a column of a DataFrame. Because datasets are strongly typed, 
+APIs are currently only available in Scala and Java, which are statically typed languages. Dynamically typed languages, such as Python and R, do not support dataset 
+APIs. Datasets offer some unique advantages and benefits over using DataFrames and RDDs. Because Datasets are statically-typed, datasets provide compile-time type 
+safety. Compile-time type safety means that Spark can detect syntax and semantic errors in production applications before deployment, saving substantial developer 
+and operational costs and time. Datasets compute faster than RDDs, especially for aggregate queries. Datasets offer the additional query optimization enabled by 
+Catalyst and Tungsten. Datasets enable improved memory usage and caching. But how? Spark understands the data structure of the datasets and optimizes the layout 
+within memory. The dataset API also offers functions for convenient high-level aggregate operations, including sum, average, join, and “group-by.” Let’s now look at 
+three ways that you can create a dataset within Spark. This first example, written in Scala, uses the toDS function to create a dataset from a sequence. This second example illustrates how to create a dataset from a text file. Notice the explicit schema declaration. In this example, we apply the primitive “String” data type to the explicit schema declaration. This third and final example creates a dataset using a JSON file. In this last example, we use a custom class called “Customer,” which contains a “name” and an “ID” field. Next, let’s compare datasets to DataFrames. Datasets offer the benefits of both its predecessors – DataFrames and RDDs. Datasets are strongly typed. DataFrames are not typesafe. Datasets can use unified Java and Scala APIs. DataFrames use APIs that are written in Java, Scala, Python, and R. The DataFrames API may or may not be unified depending on the API version. Datasets are the latest addition to Spark and are built on top of DataFrames. In contrast, DataFrames, introduced earlier, are built on RDDs. In this video, you learned that: A dataset is a distributed collection of data that provides the combined benefits of both RDDs and SparkSQL. Datasets consist of strongly typed JVM objects. Datasets use DataFrame typesafe capabilities and extend object-oriented API capabilities. Datasets work with both Scala and Java APIs.
+
+Welcome to “Spark SQL Memory Optimization using Catalyst and Tungsten.”
+
+After watching this video, you will be able to: Describe the goals of Apache Spark SQL Optimization, describe how Catalyst and Tungsten benefit Spark SQL, explain how Spark performs SQL and memory optimization using Catalyst and Tungsten. The primary goal of Spark SQL Optimization is to improve the SQL query run-time performance reducing the query’s time and memory consumption, saving organizations time and money.
+Spark SQL supports both rule-based and cost-based query optimization. Catalyst, also known as the Catalyst Optimizer, is the Spark SQL built-in rule-based query optimizer. Based on Scala functional programming constructs, Catalyst is designed to easily add new optimization techniques and features to Spark SQL. Developers can extend the optimizer by adding data-source-specific rules and support for new data types.
+
+During rule-based optimization, the SQL optimizer follows predefined rules that determine how to run the SQL query. Examples of predefined rules include validating that a table is indexed and checking that a query contains only the required columns.
+
+With the query itself optimized, cost-based optimization measures and calculates cost based on the time and memory that the query consumes. The Catalyst optimizer selects the query path that results in the lowest time and memory consumption. Because queries can use multiple paths, these calculations can become quite complex when large datasets are part of the calculation. Consider the analogy of a car and your travels. A car owner can optimize the vehicle’s performance with the right oil, tires, fuel, and so on. These actions are similar to rule-based optimization. When it’s time to plan a travel route that can save both time and wear and tear on your car, those actions are a form of cost-based optimization.
+
+In the background, the Catalyst Optimizer uses a tree data structure and provides the data tree rule sets. To optimize a query, Catalyst performs the following four high-level tasks or phases: analysis, logical optimization, physical planning, and code generation.
+
+Let’s review the four Catalyst phases: In the Analysis phase, Catalyst analyzes the query, the DataFrame, the unresolved logical plan, and the Catalog to create a logical plan. During the Logical Optimization phase, the Logical plan evolves into an Optimized Logical Plan. This is the rule-based optimization step of Spark SQL and rules such as folding, pushdown, and pruning are applied here. During the Physical Planning phase, Catalyst generates multiple physical plans based on the Logical Plan. A physical plan describes computation on datasets with specific definitions on how to conduct the computation. A cost model then chooses the physical plan with the least cost. This is the cost-based optimization step. The final phase is Code Generation. Catalyst applies the selected physical plan and generates Java bytecode to run on each node.
+
+Let’s now examine how Tungsten provides cost-based optimization in Spark. Tungsten optimizes the performance of underlying hardware focusing on CPU performance instead of IO. Java was initially designed for transactional applications. Tungsten aims to improve CPU and Memory performance by using a method more suited to data processing for the JVM to process data.
+
+To achieve optimal CPU performance, Tungsten applies the following capabilities: Tungsten manages memory explicitly and does not rely on the JVM object model or garbage collection. Tungsten creates cache-friendly data structures that are arranged easily and more securely using STRIDE-based memory access instead of random memory access. Tungsten supports JVM bytecode on-demand. Tungsten does not enable virtual function dispatches, reducing multiple CPU calls. Tungsten places intermediate data in CPU registers and enables loop unrolling.
+
+In this video, you learned that: Catalyst is the Spark SQL built-in rule-based query optimizer. Catalyst performs analysis, logical optimization, physical planning, 
+and code generation. Tungsten is the Spark built-in cost-based optimizer for CPU and memory usage that enables cache-friendly computation of algorithms and data 
+structures.
+
